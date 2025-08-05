@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --animate-shimmer: shimmer 2s infinite;
   --animate-typing: typing 1s steps(20);

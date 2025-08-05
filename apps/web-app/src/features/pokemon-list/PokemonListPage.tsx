@@ -1,11 +1,9 @@
-import {useTheme} from '../../components/theme/ThemeContext';
 import {Header} from '../../components/ui/Header';
 
 import PokemonList from './PokemonList';
 import {usePokemonList} from "./PokemonList.api";
 
 const PokemonListPage= () => {
-  const { theme } = useTheme();
   const {data: {pokemons = []} = {}, isLoading} = usePokemonList()
 
   if (isLoading) {
@@ -17,7 +15,7 @@ const PokemonListPage= () => {
   }
 
   return (
-    <div className={`${theme === "light" ? "bg-amber-50" : "bg-slate-800"} flex flex-col items-center h-full`}>
+    <div className="bg-amber-50 dark:bg-slate-800  flex flex-col items-center h-full">
       <Header/>
       <PokemonList pokemons={pokemons}/>
     </div>

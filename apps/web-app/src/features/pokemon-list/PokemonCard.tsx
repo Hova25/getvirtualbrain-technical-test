@@ -1,8 +1,6 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC, useCallback, useState} from "react";
 
-import {useTheme} from "../../components/theme/ThemeContext";
-
 interface PokemonCardProps {
     pokemon: Pokemon;
 }
@@ -30,10 +28,6 @@ export const MiniCard: FC<PokemonCardProps> = ({ pokemon }) => {
 }
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
-  const { theme } = useTheme();
-  if (!pokemon) {
-    return null;
-  }
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const onMouseMove = useCallback(
@@ -73,7 +67,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
               <img key={type.name} className='self-end' src={type.image} alt={type.name} style={{ width: "20px"}} />
             ))}
           </div>
-          <img className={`${theme === "light" ? "bg-white" : "bg-blue-950"} outline-solid outline-2 my-3`} src={pokemon.image} alt={pokemon.name} style={{ width: 'auto' }} />
+          <img className="bg-white dark:bg-blue-950 outline-solid outline-2 my-3" src={pokemon.image} alt={pokemon.name} style={{ width: 'auto' }} />
           <div>Attack: {pokemon.stats.attack}</div>
           <div>Defense: {pokemon.stats.defense}</div>
           <div>Speed: {pokemon.stats.speed}</div>
