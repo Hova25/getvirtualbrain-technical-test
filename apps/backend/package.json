@@ -15,6 +15,7 @@
 		"use-immer": "^0.11.0"
 	},
 	"devDependencies": {
+    "@getvirtualbrain-technical-test/shared-types": "workspace:*",
 		"@types/express": "^5.0.3",
 		"@types/node": "^24.1.0",
 		"@types/cors": "^2.8.19",

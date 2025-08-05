@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
+import {FC, useCallback, useState} from "react";
 
-import { useTheme } from "./ThemeContext";
+import {useTheme} from "../../components/theme/ThemeContext";
 
-interface CardProps {
-    pokemon: any;
+interface PokemonCardProps {
+    pokemon: Pokemon;
 }
 
 function throttle<T extends (...args: any[]) => any>(
@@ -21,14 +22,14 @@ function throttle<T extends (...args: any[]) => any>(
   };
 }
 
-export const MiniCard: React.FC<CardProps> = ({ pokemon }) => {
+export const MiniCard: FC<PokemonCardProps> = ({ pokemon }) => {
   return <div className="bg-amber-300 rounded-2xl p-2 h-[40px] flex items-center">
-    <img src={pokemon.imageUrl} alt={pokemon.name} style={{ height: '100%' }} />
+    <img src={pokemon.image} alt={pokemon.name} style={{ height: '100%' }} />
     <div className="text-center ml-2">{pokemon.name}</div>
   </div>;
 }
 
-const Card: React.FC<CardProps> = ({ pokemon }) => {
+const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const { theme } = useTheme();
   if (!pokemon) {
     return null;
@@ -45,7 +46,7 @@ const Card: React.FC<CardProps> = ({ pokemon }) => {
       const centerY = box.height / 2;
       const rotateX = (y - centerY) / 10;
       const rotateY = (centerX - x) / 10;
-    
+
       setRotate({ x: rotateX, y: rotateY });
     }),
     []
@@ -69,7 +70,7 @@ const Card: React.FC<CardProps> = ({ pokemon }) => {
             <div className='font-bold'>{pokemon.name}</div>
             <div>HP: {pokemon.stats.HP}</div>
             {pokemon.apiTypes.map((type) => (
-              <img className='self-end' src={type.image} alt={type.name} style={{ width: "20px"}} />
+              <img key={type.name} className='self-end' src={type.image} alt={type.name} style={{ width: "20px"}} />
             ))}
           </div>
           <img className={`${theme === "light" ? "bg-white" : "bg-blue-950"} outline-solid outline-2 my-3`} src={pokemon.image} alt={pokemon.name} style={{ width: 'auto' }} />
@@ -82,4 +83,4 @@ const Card: React.FC<CardProps> = ({ pokemon }) => {
   )
 }
 
-export default Card;
+export default PokemonCard;

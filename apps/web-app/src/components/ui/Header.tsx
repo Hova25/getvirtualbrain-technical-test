@@ -1,5 +1,5 @@
-import { useTheme } from "./ThemeContext";
-import ThemeSwitcher from "./ThemeSwitcher";
+import {useTheme} from "../theme/ThemeContext";
+import ThemeSwitcher from "../theme/ThemeSwitcher";
 
 export function Header() {
   const { theme } = useTheme();

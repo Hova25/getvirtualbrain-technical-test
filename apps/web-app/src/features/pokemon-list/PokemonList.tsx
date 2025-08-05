@@ -1,10 +1,12 @@
+import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import React from 'react';
 
-import Card from './Card';
-import { useTheme } from "./ThemeContext";
+import {useTheme} from "../../components/theme/ThemeContext";
+
+import PokemonCard from './PokemonCard';
 
 interface PokemonListProps {
-  pokemons: any[];
+  pokemons: Pokemon[];
 }
 
 const PokemonList: React.FC<PokemonListProps> = ({ pokemons }) => {
@@ -19,9 +21,9 @@ const PokemonList: React.FC<PokemonListProps> = ({ pokemons }) => {
   }
 
   return (
-    <div className={`p-4 grid grid-cols-4 gap-10 place-items-center ${theme === 'light' ? '' : 'bg-slate-800'}`}>
+    <div className={`flex-1 p-4 grid grid-cols-4 gap-10 place-items-center ${theme === 'light' ? '' : 'bg-slate-800'}`}>
       {pokemons.map((p) => (
-        <Card pokemon={p} />
+        <PokemonCard pokemon={p} key={p.pokedexId} />
       ))}
     </div>
   );

@@ -32,7 +32,7 @@ export default tseslint.config(
   {
     plugins: { "unused-imports": unusedImports },
     rules: {
-      // "no-unused-vars": "off", // Disable the base rule as it can conflict with unused-imports
+      "no-unused-vars": "off",
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
         "warn",
