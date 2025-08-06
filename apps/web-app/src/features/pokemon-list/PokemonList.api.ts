@@ -15,12 +15,14 @@ export const usePokemonList = () => {
   return useQuery({
     queryKey: ['pokemonList', {search}],
     queryFn: async ({queryKey: [, {search}]}) => {
-      const data = await axiosInstance.get<{pokemons: Pokemon[]}>(URL, {
+      const response = await axiosInstance.get<{pokemons: Pokemon[]}>(URL, {
         params: {
           search
         }
       })
-      return data.data
-    }
+      return response.data
+    },
+    // la liste n'est pas supposé être modifié, je mets ici Infinity qui permet de ne pas faire de requête à chaque fois que l'on change de page par exemple, ou que les filtres changent
+    staleTime: Infinity
   });
 }

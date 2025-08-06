@@ -15,7 +15,7 @@ const POKEMON_API_URL = 'https://pokebuildapi.fr/api/v1'
  * et pas une partie du nom, ce qui n'est pas très pratique.
  * Je préfère faire le filtrage côté serveur. J'aurai aussi pû le faire côté client, mais je suis moins fan.
  */
-const listPokemons: Pokemon[] = [];
+let listPokemons: Pokemon[] = [];
 
 PokemonController.get(
   '',
@@ -26,7 +26,7 @@ PokemonController.get(
       if(!listPokemons.length) {
         const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`)
         if(result.data) {
-          listPokemons.push(...result.data)
+          listPokemons = result.data
         }
       }
 
@@ -42,14 +42,14 @@ PokemonController.get(
 /**
  * Ici pareillement, je créé une liste in memory pour éviter de faire des appels à pokebuildapi à chaque fois.
  */
-const listPokemonTypes: PokemonType[] = [];
+let listPokemonTypes: PokemonType[] = [];
 
 PokemonController.get("/types", async (_, res: Response) => {
   try {
     if(!listPokemonTypes.length) {
       const result = await axios.get<PokemonType[]>(`${POKEMON_API_URL}/types`)
       if(result.data) {
-        listPokemonTypes.push(...result.data)
+        listPokemonTypes = result.data
       }
     }
 
