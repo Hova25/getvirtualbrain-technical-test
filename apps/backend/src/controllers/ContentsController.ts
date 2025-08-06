@@ -1,7 +1,8 @@
+import archiver from 'archiver';
 import {type Request, type Response, Router} from 'express'
 
 import {pokemonToMarkdown} from "../services/ContentService";
-import {fetchPokemonById} from "../services/PokemonService";
+import {fetchAllPokemons, fetchPokemonById} from "../services/PokemonService";
 
 const ContentController = Router()
 
@@ -13,7 +14,24 @@ const ContentController = Router()
 ContentController.get(
   '/all',
   async (_req: Request, res: Response) => {
-    return res.sendStatus(200)
+    try {
+      const pokemons = await fetchAllPokemons()
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', 'attachment; filename=pokemons.zip');
+
+      const archive = archiver('zip', { zlib: { level: 9 } });
+
+      archive.pipe(res);
+
+      pokemons.forEach(pokemon => {
+        const mdContent = pokemonToMarkdown(pokemon);
+        archive.append(mdContent, { name: `pokemon-${pokemon.pokedexId}-${pokemon.name}.md` });
+      });
+
+      await archive.finalize();
+    } catch {
+      return res.status(500).send({ error: "Failed to generate Pokemon archive" });
+    }
   }
 )
 
@@ -31,7 +49,7 @@ ContentController.get(
       const pokemon = await fetchPokemonById(pokemonId)
 
       res.setHeader('Content-Type', 'text/markdown');
-      res.setHeader('Content-Disposition', `attachment; filename=pokemon-${pokemon.name}-${pokemon.pokedexId}.md`);
+      res.setHeader('Content-Disposition', `attachment; filename=pokemon-${pokemon.pokedexId}-${pokemon.name}.md`);
       return res.send(pokemonToMarkdown(pokemon));
     } catch {
       return res.status(404).send({error: "Pokemon not found"})

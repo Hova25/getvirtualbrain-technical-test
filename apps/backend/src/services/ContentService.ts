@@ -2,7 +2,7 @@ import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 
 export const pokemonToMarkdown = (pokemon: Pokemon): string => {
   const {
-    name, pokedexId, slug,
+    name, pokedexId,
     image, sprite, stats,
     apiGeneration, apiTypes, apiResistances,
     apiEvolutions, apiPreEvolution
@@ -13,7 +13,6 @@ export const pokemonToMarkdown = (pokemon: Pokemon): string => {
 
 ## Informations générales
 - **Pokedex ID**: ${pokedexId}
-- **Slug**: ${slug}
 - **Génération**: ${apiGeneration}
 
 ## Images
