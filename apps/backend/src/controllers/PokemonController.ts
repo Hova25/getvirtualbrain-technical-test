@@ -1,49 +1,19 @@
-import {Pokemon, PokemonType} from "@getvirtualbrain-technical-test/shared-types";
+import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
 import axios from 'axios'
 import {type Request, type Response, Router} from 'express'
 
+import {fetchAllPokemons, fetchPokemonById} from "../services/PokemonService";
+
 const PokemonController = Router()
 const POKEMON_API_URL = 'https://pokebuildapi.fr/api/v1'
-
-/**
- * Je créé une liste in memory ici pour éviter de faire des appels à l'API à chaque fois et gagner en performance.
- * En réalité, il faudrait mettre en place un cache Redis par exemple pour éviter de faire trop d'appels à l'API externe.
- * Alors que la liste ne change pas.
- * Cela permettrait de payer moins cher l'API (dans le cas où c'est payant) et de gagner en performance.
- * De plus, j'ai décidé de faire ça afin de filtrer les pokémons côté serveur.
- * J'aurai pû appeler pokebuildapi mais malheureusement sur la recherche, il faut entrer le nom complet du pokémon
- * et pas une partie du nom, ce qui n'est pas très pratique.
- * Je préfère faire le filtrage côté serveur. J'aurai aussi pû le faire côté client, mais je suis moins fan.
- */
-let listPokemons: Pokemon[] = [];
 
 PokemonController.get(
   '',
   async (req: Request, res: Response) => {
     try {
       const { search = "", types } = req.query as { search?: string, types?: string }
-      const queryTypesArray = types?.split(',') || []
 
-      if(!listPokemons.length) {
-        const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`)
-        if(result.data) {
-          listPokemons = result.data
-        }
-      }
-
-      /**
-       * Ici je fais un filtrage en mode "OU" sur les types de pokémons.
-       * Donc ont récupère tous les pokémons qui ont au moins un type renseigné.
-       * J'aurais pu faire un filtrage en mode "ET" mais cela aurait été plus restrictif
-       * et donc moins de pokémons seraient retournés.
-       */
-      const pokemons = (search || queryTypesArray.length > 0)
-        ? listPokemons.filter(({name, apiTypes}) => {
-          const apiTypesNames = apiTypes.map((apiType) => apiType.name);
-          const isInQueryTypesArray = queryTypesArray.length === 0 || apiTypesNames.some(apiTypeName => queryTypesArray.includes(apiTypeName));
-          return isInQueryTypesArray && name.toLowerCase().includes(search.toLowerCase())
-        })
-        : listPokemons;
+      const pokemons = await fetchAllPokemons({search, types: types?.split(',')})
       return res.status(200).send({pokemons})
     } catch {
       console.error('Error fetching pokemons')
@@ -76,13 +46,14 @@ PokemonController.get("/types", async (_, res: Response) => {
 PokemonController.get(
   '/:id',
   async (req: Request, res: Response) => {
-    const { id } = req.params
+    try {
+      const { id } = req.params
+      const pokemon = await fetchPokemonById(id)
 
-    const result = await axios.get<Pokemon>(`${POKEMON_API_URL}/pokemon/${id}`)
-
-    const pokemon = result.data
-
-    return res.status(200).send({pokemon})
+      return res.status(200).send({pokemon})
+    } catch {
+      return res.status(404).send({error: "Pokemon not found"})
+    }
   }
 )
 
