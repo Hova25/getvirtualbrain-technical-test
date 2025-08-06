@@ -50,7 +50,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
     setRotate({ x: 0, y: 0 });
   };
   return (
-    <div className={` bg-linear-to-r from-amber-300 via-amber-100 to-amber-300  p-1 rounded-2xl w-[250px] shadow-md outline-orange-400 hover:outline-dashed`}
+    <div className="bg-linear-to-r from-amber-300 via-amber-100 to-amber-300  p-1 rounded-2xl w-[250px] shadow-md outline-orange-400 hover:outline-dashed"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{
@@ -58,7 +58,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
         transition: "all 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
       }}
     >
-      <div className={`rounded-2xl bg-linear-to-br from-black/10 via-white/70 to-black/10 `}>
+      <div className="rounded-2xl bg-linear-to-br from-black/10 via-white/70 to-black/10">
         <div className="p-4 flex-col rounded-2xl">
           <div className='flex gap-3 justify-between'>
             <div className='font-bold'>{pokemon.name}</div>

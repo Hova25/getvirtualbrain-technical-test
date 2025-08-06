@@ -1,13 +1,13 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
-import React from 'react';
+import {FC} from 'react';
 
-import PokemonCard from './PokemonCard';
+import PokemonCard from '../../components/PokemonCard';
 
 interface PokemonListProps {
   pokemons: Pokemon[];
 }
 
-const PokemonList: React.FC<PokemonListProps> = ({ pokemons }) => {
+const PokemonList: FC<PokemonListProps> = ({ pokemons }) => {
   if (pokemons.length === 0) {
     return (
       <div className="flex items-center">
