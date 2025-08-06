@@ -4,10 +4,7 @@ import {PokemonListFilters} from "./filters/PokemonListFilters";
 
 const PokemonListPage= () => {
   const {data: {pokemons = []} = {}, isLoading} = usePokemonList()
-
-
-  console.log(isLoading)
-
+  
   return (
     <>
       <PokemonListFilters />

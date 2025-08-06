@@ -1,6 +1,8 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC, useCallback, useState} from "react";
 
+import {PokemonTypeImage} from "./PokemonTypeImage";
+
 interface PokemonCardProps {
     pokemon: Pokemon;
 }
@@ -63,8 +65,8 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
           <div className='flex gap-3 justify-between'>
             <div className='font-bold'>{pokemon.name}</div>
             <div>HP: {pokemon.stats.HP}</div>
-            {pokemon.apiTypes.map((type) => (
-              <img key={type.name} className='self-end' src={type.image} alt={type.name} style={{ width: "20px"}} />
+            {pokemon.apiTypes.map((pokemonType) => (
+              <PokemonTypeImage key={pokemonType.name} className="self-end" pokemonType={pokemonType} />
             ))}
           </div>
           <img className="bg-white dark:bg-blue-950 outline-solid outline-2 my-3" src={pokemon.image} alt={pokemon.name} style={{ width: 'auto' }} />
