@@ -1,5 +1,8 @@
 import {type Request, type Response, Router} from 'express'
 
+import {pokemonToMarkdown} from "../services/ContentService";
+import {fetchPokemonById} from "../services/PokemonService";
+
 const ContentController = Router()
 
 /**
@@ -22,8 +25,17 @@ ContentController.get(
 */
 ContentController.get(
   '/:pokemonId',
-  async (_req: Request, res: Response) => {
-    return res.sendStatus(200)
+  async (req: Request, res: Response) => {
+    try {
+      const { pokemonId } = req.params
+      const pokemon = await fetchPokemonById(pokemonId)
+
+      res.setHeader('Content-Type', 'text/markdown');
+      res.setHeader('Content-Disposition', `attachment; filename=pokemon-${pokemon.name}-${pokemon.pokedexId}.md`);
+      return res.send(pokemonToMarkdown(pokemon));
+    } catch {
+      return res.status(404).send({error: "Pokemon not found"})
+    }
   }
 )
 

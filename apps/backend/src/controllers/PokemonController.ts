@@ -46,10 +46,14 @@ PokemonController.get("/types", async (_, res: Response) => {
 PokemonController.get(
   '/:id',
   async (req: Request, res: Response) => {
-    const { id } = req.params
-    const pokemon = await fetchPokemonById(id)
+    try {
+      const { id } = req.params
+      const pokemon = await fetchPokemonById(id)
 
-    return res.status(200).send({pokemon})
+      return res.status(200).send({pokemon})
+    } catch {
+      return res.status(404).send({error: "Pokemon not found"})
+    }
   }
 )
 
