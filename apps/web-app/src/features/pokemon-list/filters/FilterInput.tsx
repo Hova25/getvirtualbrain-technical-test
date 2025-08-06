@@ -15,7 +15,7 @@ export const FilterInput = () => {
     } else {
       searchParams.delete(POKEMON_LIST_SEARCH_PARAM_SEARCH);
     }
-    setSearchParams(searchParams)
+    setSearchParams(searchParams, { replace: true })
   }, 200);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +23,6 @@ export const FilterInput = () => {
   }
 
   return (
-    <Input defaultValue={searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""}  placeholder="Pokemon name" onChange={handleSearchChange} />
+    <Input defaultValue={searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""}  placeholder="Nom du pokémon" onChange={handleSearchChange} />
   )
 }

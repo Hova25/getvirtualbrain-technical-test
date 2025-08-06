@@ -1,4 +1,5 @@
 import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
+import {useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import Select, {components, GroupBase, MultiValue, MultiValueGenericProps, OptionProps} from "react-select";
 
@@ -31,16 +32,20 @@ const MultiValueLabel = (props: MultiValueGenericProps<PokemonType>) => {
 };
 
 export const PokemonTypesSelect = () => {
+  // Je fais un state et un searchParams ici car le search params ne se met pas à jour immédiatement
+  // et donc le state est nécessaire pour que le composant se mette à jour immédiatement.
+  // Sinon, le composant ne se mettrait pas à jour immédiatement et on aurait un problème de performance.
   const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedTypes, setSelectedTypes] = useState<string[] | undefined>(searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES)?.split(","));
   const {data: pokemonTypes} = useGetPokemonTypes()
-
-  const selectedTypes = searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES)?.split(",")
 
   const handleChange = (newValue: MultiValue<PokemonType>) => {
     if(newValue.length > 0) {
       searchParams.set(POKEMON_LIST_SEARCH_PARAM_TYPES, newValue.map(({name}) => name).toString())
+      setSelectedTypes(newValue.map(({name}) => name))
     } else {
       searchParams.delete(POKEMON_LIST_SEARCH_PARAM_TYPES)
+      setSelectedTypes([])
     }
     setSearchParams(searchParams)
   }
