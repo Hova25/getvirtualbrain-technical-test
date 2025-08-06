@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.84.1",
     "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
+    "react-router-dom": "^7.7.1",
     "ts-pattern": "^5.8.0",
     "use-immer": "^0.11.0"
   },
   "devDependencies": {
+    "@getvirtualbrain-technical-test/shared-types": "workspace:*",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",

@@ -1,8 +1,7 @@
 import React from 'react';
-import { IoIosSunny } from "react-icons/io";
-import { IoIosMoon } from "react-icons/io";
+import {IoIosMoon, IoIosSunny} from "react-icons/io";
 
-import { useTheme } from './ThemeContext';
+import {useTheme} from './ThemeContext';
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, toggleTheme } = useTheme();

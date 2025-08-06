@@ -1,75 +1,54 @@
+import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import axios from 'axios'
-import { type Request, type Response, Router } from 'express'
+import {type Request, type Response, Router} from 'express'
 
 const PokemonController = Router()
 const POKEMON_API_URL = 'https://pokebuildapi.fr/api/v1'
-
-export interface PokemonType {
-	name: string;
-	image: string;
-}
-
-export interface StatBlock {
-	HP: number;
-	attack: number;
-	defense: number;
-	special_attack: number;
-	special_defense: number;
-	speed: number;
-}
-
-export type DamageRelation =
-	| "neutral"
-	| "resistant"
-	| "twice_resistant"
-	| "vulnerable"
-	| "twice_vulnerable"
-	| "immune";
-
-export interface Resistance {
-	name: string;
-	damage_multiplier: number;
-	damage_relation: DamageRelation;
-}
-
-export interface Ability {
-	name: string;
-	slug: string;
-}
-
-export interface Evolution {
-	name: string;
-	pokedexId: number;
-}
-
-export interface Pokemon {
-	id: number;
-	pokedexId: number;
-	name: string;
-	image: string;
-	sprite: string;
-	slug: string;
-	stats: StatBlock;
-	apiTypes: PokemonType[];
-	apiGeneration: number;
-	apiResistances: Resistance[];
-	resistanceModifyingAbilitiesForApi: Ability;
-	apiEvolutions: Evolution[];
-	apiPreEvolution: string | "none";
-	apiResistancesWithAbilities: Resistance[];
-}
 
 PokemonController.get(
   '/:id',
   async (req: Request, res: Response) => {
     const { id } = req.params
 
-    console.log('coucou')
-    const result = await axios.get(`${POKEMON_API_URL}/pokemon/${id}`)
+    const result = await axios.get<Pokemon>(`${POKEMON_API_URL}/pokemon/${id}`)
 
-    const pokemon = result.data as Pokemon
+    const pokemon = result.data
 
     return res.status(200).send({pokemon})
+  }
+)
+
+/**
+ * Je créé une liste in memory ici pour éviter de faire des appels à l'API à chaque fois et gagner en performance.
+ * En réalité, il faudrait mettre en place un cache Redis par exemple pour éviter de faire trop d'appels à l'API externe.
+ * Alors que la liste ne change pas.
+ * Cela permettrait de payer moins cher l'API (dans le cas où c'est payant) et de gagner en performance.
+ * De plus, j'ai décidé de faire ça afin de filtrer les pokémons côté serveur.
+ * J'aurai pû appeler pokebuildapi mais malheureusement sur la recherche, il faut entrer le nom complet du pokémon
+ * et pas une partie du nom, ce qui n'est pas très pratique.
+ * Je préfère faire le filtrage côté serveur. J'aurai aussi pû le faire côté client, mais je suis moins fan.
+ */
+let listPokemons: Pokemon[] = [];
+
+PokemonController.get(
+  '',
+  async (req: Request, res: Response) => {
+    try {
+      const { search } = req.query as { search?: string }
+
+      if(!listPokemons.length) {
+        const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`)
+        if(result.data) {
+          listPokemons = result.data
+        }
+      }
+
+      const pokemons = search ? listPokemons.filter(pokemon => pokemon.name.toLowerCase().includes(search.toLowerCase())) : listPokemons
+      return res.status(200).send({pokemons})
+    } catch {
+      console.error('Error fetching pokemons')
+      return res.status(500).send({description: "Une erreur est survenue lors de la récupération des pokémons."})
+    }
   }
 )
 
