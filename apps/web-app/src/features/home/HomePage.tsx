@@ -4,6 +4,7 @@ import {Link, useLocation} from "react-router-dom";
 import {RouterPaths} from "../../App";
 import {Button} from "../../components/ui/Button";
 import {Card} from "../../components/ui/Card";
+import {FC} from "react";
 
 export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
 export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
@@ -11,6 +12,29 @@ export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
 export type HomePageState = {
   pokemon1?: Pokemon,
   pokemon2?: Pokemon,
+}
+
+type PokemonSelectionProps = {
+  pokemon?: Pokemon,
+  step: PokemonSelectionStep
+}
+const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
+  const { state } = useLocation()
+
+  return (
+    <>
+      {pokemon ?
+        <div>{pokemon.name}</div> :
+        <Link
+          to={RouterPaths.POKEMON_SELECTION}
+          state={{ step: POKEMON_SELECTION_STEPS[step === "POKEMON_1"? 0 : 1], ...state}}
+          className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
+        >
+          Choisir le Pokémon {step === "POKEMON_1" ? "1" : "2"}
+        </Link>
+      }
+    </>
+  )
 }
 
 export const HomePage = () => {
@@ -25,21 +49,8 @@ export const HomePage = () => {
       </p>
 
       <div className="flex flex-col gap-4">
-        <Link
-          to={RouterPaths.POKEMON_SELECTION}
-          state={{ step: POKEMON_SELECTION_STEPS[0], ...state}}
-          className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
-        >
-            Choisir le Pokémon 1
-        </Link>
-
-        <Link
-          to={RouterPaths.POKEMON_SELECTION}
-          state={{ step: POKEMON_SELECTION_STEPS[1], ...state}}
-          className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
-        >
-            Choisir le Pokémon 2
-        </Link>
+        <PokemonSelection pokemon={pokemon1} step={"POKEMON_1"}  />
+        <PokemonSelection pokemon={pokemon2} step={"POKEMON_2"}  />
       </div>
 
       <p className="text-xs text-gray-500 italic">
