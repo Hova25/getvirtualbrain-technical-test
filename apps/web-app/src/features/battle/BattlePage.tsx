@@ -10,12 +10,15 @@ export const BattlePage = () => {
   const {data, isLoading, isError} = usePokemonListByNames()
   const [content, setContent] = useState('');
 
+  const {pokemons} = data || {pokemons: []};
+
+  const pokemon1 = pokemons[0]
+  const pokemon2 = pokemons[1]
+
   const fetchStreamedText = async () => {
     if(!data) {
       return;
     }
-    const pokemon1 = data.pokemons[0]
-    const pokemon2 = data.pokemons[1]
     const prompt = `
 Tu es un narrateur épique de combats Pokémon.
 Décris un combat intense entre ${pokemon1?.name} et ${pokemon2?.name}.
@@ -60,10 +63,12 @@ Commence maintenant :
 
   return (
     <div className="flex flex-col gap-8 w-full items-center">
-      <div className="flex flex-col gap-4  sm:flex-row sm:gap-8">
-        {data?.pokemons.map(pokemon => <PokemonSmallCard key={pokemon.pokedexId} pokemon={pokemon} />)}
+      <div className="flex flex-col gap-4  sm:flex-row sm:gap-8 items-center">
+        <PokemonSmallCard pokemon={pokemon1} />
+        <img className="h-20" src="/images/vs.webp" alt={`${pokemon1.name} VS ${pokemon2.name}`}  />
+        <PokemonSmallCard pokemon={pokemon2} />
       </div>
-      <Card className="min-h-[480px] sm:min-h-96 overflow-auto w-full  sm:!w-[80%]">
+      <Card className="min-h-[600px] sm:min-h-96 overflow-auto w-full  sm:!w-[80%]">
         <pre>{content}</pre>
       </Card>
     </div>
