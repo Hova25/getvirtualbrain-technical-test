@@ -16,7 +16,7 @@ export const usePokemonList = () => {
 
   return useQuery({
     queryKey: ['pokemonList', {search, types}],
-    queryFn: async ({queryKey: [, {search, types}]}) => {
+    queryFn: async () => {
       const response = await axiosInstance.get<{pokemons: Pokemon[]}>(URL, {
         params: {
           search,

@@ -4,10 +4,10 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "className"> & {
 
 }
 
-export const Input: FC<InputProps> = ({ ...inputProps}) => {
+export const Input: FC<InputProps> = (props) => {
   return (
     <input
-      {...inputProps}
+      {...props}
       className="border border-amber-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-amber-600 dark:text-amber-50"
     />
   )
