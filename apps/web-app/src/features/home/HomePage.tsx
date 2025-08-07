@@ -5,6 +5,7 @@ import {RouterPaths} from "../../App";
 import {Button} from "../../components/ui/Button";
 import {Card} from "../../components/ui/Card";
 import {FC} from "react";
+import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
 
 export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
 export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
@@ -24,7 +25,7 @@ const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
   return (
     <>
       {pokemon ?
-        <div>{pokemon.name}</div> :
+        <PokemonSmallCard pokemon={pokemon} step={step} /> :
         <Link
           to={RouterPaths.POKEMON_SELECTION}
           state={{ step: POKEMON_SELECTION_STEPS[step === "POKEMON_1"? 0 : 1], ...state}}
