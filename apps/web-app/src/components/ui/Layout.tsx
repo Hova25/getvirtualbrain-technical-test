@@ -2,6 +2,8 @@ import {PropsWithChildren} from "react";
 
 import {useTheme} from "../theme/ThemeContext";
 
+import {ScrollTopButton} from "./ScrollTopButton.tsx";
+
 export const Layout = ({children}: PropsWithChildren) => {
   const {theme} = useTheme()
   return (
@@ -11,6 +13,7 @@ export const Layout = ({children}: PropsWithChildren) => {
     >
       <img src="/images/logo.webp" alt="PokeBattle Logo" height={100} />
       {children}
+      <ScrollTopButton />
     </div>
   );
 }

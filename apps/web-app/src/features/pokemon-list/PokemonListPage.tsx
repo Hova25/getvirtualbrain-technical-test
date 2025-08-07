@@ -5,6 +5,7 @@ import {Link, useLocation} from "react-router-dom";
 import {PokemonSelectionStep} from "../home/HomePage.tsx";
 import {Card} from '../../components/ui/Card.tsx';
 import {Button} from "../../components/ui/Button.tsx";
+import {IoMdArrowBack} from "react-icons/io";
 
 export type PokemonListPageState = {
   step?: PokemonSelectionStep;
@@ -28,6 +29,10 @@ const PokemonListPage= () => {
 
   return (
     <>
+      <Link to={"/"} className={"absolute left-10 top-10 z-50"}>
+        <Button><IoMdArrowBack /></Button>
+      </Link>
+
       <PokemonListFilters />
       {isLoading && (
         <div className="flex items-center h-full flex-1">
