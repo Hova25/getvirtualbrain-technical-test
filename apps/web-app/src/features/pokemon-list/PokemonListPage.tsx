@@ -6,6 +6,7 @@ import {HomePageState, PokemonSelectionStep} from "../home/HomePage.tsx";
 import {Card} from '../../components/ui/Card.tsx';
 import {Button} from "../../components/ui/Button.tsx";
 import {IoMdArrowBack} from "react-icons/io";
+import {RouterPaths} from "../../App.tsx";
 
 export type PokemonListPageState = {
   step?: PokemonSelectionStep;
@@ -21,7 +22,7 @@ const PokemonListPage= () => {
     return (
       <Card className={"items-center"}>
         <span>Vous devez d'abord passer par la page d'accueil pour sélectionner un pokémon !</span>
-        <Link to={"/"}><Button>Retourner sur la page d'accueil</Button></Link>
+        <Link to={RouterPaths.HOME}><Button>Retourner sur la page d'accueil</Button></Link>
       </Card>
     )
   }
@@ -29,7 +30,7 @@ const PokemonListPage= () => {
 
   return (
     <>
-      <Link to={"/"} state={homePageState} className={"absolute left-10 top-10 z-50"}>
+      <Link to={RouterPaths.HOME} state={homePageState} className={"absolute left-10 top-10 z-50"}>
         <Button><IoMdArrowBack /></Button>
       </Link>
 

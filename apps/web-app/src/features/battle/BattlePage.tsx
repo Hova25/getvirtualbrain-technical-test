@@ -1,7 +1,9 @@
 import {useEffect, useRef, useState} from "react";
+import {IoIosHome} from "react-icons/io";
 import ReactMarkdown from "react-markdown";
 import {Link} from "react-router-dom";
 
+import {RouterPaths} from "../../App.tsx";
 import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
 import {Button} from "../../components/ui/Button.tsx";
 import {Card} from "../../components/ui/Card.tsx";
@@ -107,6 +109,12 @@ Commence maintenant :
         {!content && (<Loader />)}
         {content && <ReactMarkdown>{content}</ReactMarkdown>}
       </Card>
+      <Link to={RouterPaths.HOME}>
+        <Button variant="secondary" className="fixed top-10 left-10" title="Retourner à l'acceuil">
+          <IoIosHome />
+        </Button>
+      </Link>
+
     </div>
   );
 };
