@@ -1,5 +1,5 @@
-import {ChangeEvent} from "react";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {ChangeEvent, useEffect, useState} from "react";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 import {Input} from "../../../components/ui/Input.tsx";
 import {useDebounceCallback} from "../../../hooks/useDebounceCallback.ts";
@@ -7,36 +7,33 @@ import {useDebounceCallback} from "../../../hooks/useDebounceCallback.ts";
 export const POKEMON_LIST_SEARCH_PARAM_SEARCH = "search";
 
 export const FilterInput = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const {state} = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParamsValue = searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""
+  const [value, setValue] = useState(searchParamsValue)
 
   const debouncedSearch = useDebounceCallback((value: string) => {
-    const newParams = new URLSearchParams(searchParams);
-
     if (value) {
-      newParams.set(POKEMON_LIST_SEARCH_PARAM_SEARCH, value);
+      searchParams.set(POKEMON_LIST_SEARCH_PARAM_SEARCH, value);
     } else {
-      newParams.delete(POKEMON_LIST_SEARCH_PARAM_SEARCH);
+      searchParams.delete(POKEMON_LIST_SEARCH_PARAM_SEARCH);
     }
-
-    navigate(
-      {
-        pathname: location.pathname,
-        search: newParams.toString(),
-      },
-      {
-        replace: true,
-        state: location.state,
-      }
-    );
+    setSearchParams(searchParams, { state })
   }, 200);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.target.value);
+    const v = e.target.value
+    setValue(v)
+    debouncedSearch(v);
   }
 
+  useEffect(() => {
+    if(searchParamsValue !== value) {
+      setValue(searchParamsValue);
+    }
+  }, [searchParamsValue]);
+
   return (
-    <Input defaultValue={searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""}  placeholder="Nom du pokémon" onChange={handleSearchChange} />
+    <Input value={value} placeholder="Nom du pokémon" onChange={handleSearchChange} />
   )
 }
