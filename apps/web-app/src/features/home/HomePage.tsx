@@ -43,7 +43,8 @@ export const HomePage = () => {
   const { state } = useLocation()
   const { pokemon1, pokemon2 } = (state || {}) as HomePageState
 
-  const isDisabled= !pokemon1 || !pokemon2
+  const isSamePokemons = pokemon1.pokedexId === pokemon2.pokedexId
+  const isDisabled= !pokemon1 || !pokemon2 || isSamePokemons
 
   return (
     <Card className="w-full max-w-md p-6 rounded-2xl shadow-xl bg-white/90 backdrop-blur border border-gray-300  gap-4 flex flex-col">
@@ -66,6 +67,9 @@ export const HomePage = () => {
         L’IA décrit le combat en temps réel, avec attaques, suspense et un vainqueur final.
       </span>
 
+      {isSamePokemons && (
+        <span className={"text-xs  text-red-600"}>Vous ne pouvez pas choisir deux fois le même Pokémon… On ne fait pas se battre les frères entre eux !</span>
+      )}
       <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}
             aria-disabled={isDisabled}
             className={isDisabled ? "pointer-events-none" : ""}
