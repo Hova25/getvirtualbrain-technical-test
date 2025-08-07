@@ -7,7 +7,7 @@ export const Layout = ({children}: PropsWithChildren) => {
   return (
     <div
       data-theme={theme}
-      className="min-h-screen bg-fixed flex items-center flex-col bg-cover bg-center bg-no-repeat bg-[url('/images/background.webp')] py-8 gap-12"
+      className="min-h-screen bg-fixed flex items-center flex-col bg-cover bg-center bg-no-repeat bg-[url('/images/background.webp')] py-8 gap-12 px-4"
     >
       <img src="/images/logo.webp" alt="PokeBattle Logo" height={100} />
       {children}

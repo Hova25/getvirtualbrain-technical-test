@@ -9,7 +9,7 @@ import {POKEMON_LIST_SEARCH_PARAM_TYPES} from "./filters/PokemonTypesSelect";
 
 const URL = "pokemons";
 
-export const usePokemonList = () => {
+export const usePokemonList = (enabled: boolean = true) => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH);
   const types = searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES);
@@ -25,6 +25,7 @@ export const usePokemonList = () => {
       })
       return response.data
     },
+    enabled,
     // la liste n'est pas supposé être modifié, je mets ici Infinity qui permet de ne pas faire de requête à chaque fois que l'on change de page par exemple, ou que les filtres changent
     staleTime: Infinity
   });

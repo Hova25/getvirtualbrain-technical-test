@@ -4,7 +4,8 @@ import {RouterPaths} from "../../App.tsx";
 import {Button} from "../../components/ui/Button.tsx";
 import {Card} from "../../components/ui/Card.tsx";
 
-export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"];
+export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
+export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
 
 export const HomePage = () => {
   return (
