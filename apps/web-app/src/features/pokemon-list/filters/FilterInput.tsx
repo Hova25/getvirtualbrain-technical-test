@@ -1,5 +1,5 @@
-import {ChangeEvent} from "react";
-import {useSearchParams} from "react-router-dom";
+import {ChangeEvent, useEffect, useState} from "react";
+import {useLocation, useSearchParams} from "react-router-dom";
 
 import {Input} from "../../../components/ui/Input.tsx";
 import {useDebounceCallback} from "../../../hooks/useDebounceCallback.ts";
@@ -7,7 +7,10 @@ import {useDebounceCallback} from "../../../hooks/useDebounceCallback.ts";
 export const POKEMON_LIST_SEARCH_PARAM_SEARCH = "search";
 
 export const FilterInput = () => {
+  const {state} = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
+  const searchParamsValue = searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""
+  const [value, setValue] = useState(searchParamsValue)
 
   const debouncedSearch = useDebounceCallback((value: string) => {
     if (value) {
@@ -15,14 +18,22 @@ export const FilterInput = () => {
     } else {
       searchParams.delete(POKEMON_LIST_SEARCH_PARAM_SEARCH);
     }
-    setSearchParams(searchParams, { replace: true })
+    setSearchParams(searchParams, { state })
   }, 200);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.target.value);
+    const v = e.target.value
+    setValue(v)
+    debouncedSearch(v);
   }
 
+  useEffect(() => {
+    if(searchParamsValue !== value) {
+      setValue(searchParamsValue);
+    }
+  }, [searchParamsValue]);
+
   return (
-    <Input defaultValue={searchParams.get(POKEMON_LIST_SEARCH_PARAM_SEARCH) || ""}  placeholder="Nom du pokémon" onChange={handleSearchChange} />
+    <Input value={value} placeholder="Nom du pokémon" onChange={handleSearchChange} />
   )
 }

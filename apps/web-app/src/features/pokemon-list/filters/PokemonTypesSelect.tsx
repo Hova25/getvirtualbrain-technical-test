@@ -1,6 +1,6 @@
 import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
 import {useState} from "react";
-import {useSearchParams} from "react-router-dom";
+import {useLocation, useSearchParams} from "react-router-dom";
 import Select, {components, GroupBase, MultiValue, MultiValueGenericProps, OptionProps} from "react-select";
 
 import {PokemonTypeImage} from "../../../components/pokemon/PokemonTypeImage";
@@ -36,6 +36,7 @@ export const PokemonTypesSelect = () => {
   // et donc le state est nécessaire pour que le composant se mette à jour immédiatement.
   // Sinon, le composant ne se mettrait pas à jour immédiatement et on aurait un problème de performance.
   const [searchParams, setSearchParams] = useSearchParams();
+  const {state} = useLocation()
   const [selectedTypes, setSelectedTypes] = useState<string[] | undefined>(searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES)?.split(","));
   const {data: pokemonTypes} = useGetPokemonTypes()
 
@@ -47,7 +48,7 @@ export const PokemonTypesSelect = () => {
       searchParams.delete(POKEMON_LIST_SEARCH_PARAM_TYPES)
       setSelectedTypes([])
     }
-    setSearchParams(searchParams)
+    setSearchParams(searchParams, {state})
   }
 
   return (
