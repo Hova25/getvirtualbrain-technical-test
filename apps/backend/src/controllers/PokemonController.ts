@@ -11,9 +11,9 @@ PokemonController.get(
   '',
   async (req: Request, res: Response) => {
     try {
-      const { search = "", types } = req.query as { search?: string, types?: string }
+      const { search = "", types, names } = req.query as { search?: string, types?: string, names?: string }
 
-      const pokemons = await fetchAllPokemons({search, types: types?.split(',')})
+      const pokemons = await fetchAllPokemons({search, types: types?.split(','), names: names?.split(",")})
       return res.status(200).send({pokemons})
     } catch {
       console.error('Error fetching pokemons')

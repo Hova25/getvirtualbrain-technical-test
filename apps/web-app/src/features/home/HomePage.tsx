@@ -58,7 +58,9 @@ export const HomePage = () => {
           ⚠️ L’IA décrit le combat en temps réel, avec attaques, suspense et un vainqueur final.
       </p>
 
-      <Button>Lancer le combat !</Button>
+      <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}>
+        <Button className={"w-full"}>Lancer le combat !</Button>
+      </Link>
     </Card>
   )
 }

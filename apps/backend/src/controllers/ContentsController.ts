@@ -25,7 +25,7 @@ ContentController.get(
 
       pokemons.forEach(pokemon => {
         const mdContent = pokemonToMarkdown(pokemon);
-        archive.append(mdContent, { name: `pokemon-${pokemon.pokedexId}-${pokemon.name}.md` });
+        archive.append(mdContent, { name: `${pokemon.slug}.md` });
       });
 
       await archive.finalize();
@@ -49,7 +49,7 @@ ContentController.get(
       const pokemon = await fetchPokemonById(pokemonId)
 
       res.setHeader('Content-Type', 'text/markdown');
-      res.setHeader('Content-Disposition', `attachment; filename=pokemon-${pokemon.pokedexId}-${pokemon.name}.md`);
+      res.setHeader('Content-Disposition', `attachment; filename=${pokemon.slug}.md`);
       return res.send(pokemonToMarkdown(pokemon));
     } catch {
       return res.status(404).send({error: "Pokemon not found"})
