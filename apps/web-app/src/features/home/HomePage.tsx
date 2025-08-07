@@ -29,9 +29,11 @@ const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
         <Link
           to={RouterPaths.POKEMON_SELECTION}
           state={{ step: POKEMON_SELECTION_STEPS[step === "POKEMON_1"? 0 : 1], ...state}}
-          className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
         >
-          Choisir le Pokémon {step === "POKEMON_1" ? "1" : "2"}
+          <Button className={"w-full"} variant={"tertiary"}>
+            Choisir le Pokémon {step === "POKEMON_1" ? "1" : "2"}
+          </Button>
+
         </Link>
       }
     </>
@@ -59,7 +61,7 @@ export const HomePage = () => {
       </p>
 
       <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}>
-        <Button className={"w-full"}>Lancer le combat !</Button>
+        <Button variant={"secondary"} className={"w-full"}>Lancer le combat !</Button>
       </Link>
     </Card>
   )

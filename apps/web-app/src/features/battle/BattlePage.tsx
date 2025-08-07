@@ -1,8 +1,11 @@
 import {useEffect, useRef, useState} from "react";
 import ReactMarkdown from "react-markdown";
+import {Link} from "react-router-dom";
 
 import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
+import {Button} from "../../components/ui/Button.tsx";
 import {Card} from "../../components/ui/Card.tsx";
+import {Loader} from "../../components/ui/Loader.tsx";
 import {CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL} from "../../utils/ShortEnv.ts";
 
 import {usePokemonListByNames} from "./BattlePage.api.ts";
@@ -76,11 +79,16 @@ Commence maintenant :
   }, [data?.pokemons.length]);
 
   if (isLoading) {
-    return <div>Loading…</div>;
+    return <Loader />;
   }
 
   if (isError) {
-    return <div>Une erreur est survenue lors de la réception des Pokémons</div>;
+    return (
+      <Card>
+        <span>Une erreur est survenue lors de la réception des Pokémons</span>
+        <Link to="/"><Button className="w-full" variant="secondary">Aller sur la page d'accueil</Button></Link>
+      </Card>
+    );
   }
 
   return (
@@ -95,8 +103,9 @@ Commence maintenant :
         <PokemonSmallCard pokemon={pokemon2} />
       </div>
 
-      <Card className="min-h-[600px] sm:min-h-96 overflow-auto w-full sm:!w-[80%] prose dark:prose-invert">
-        <ReactMarkdown>{content}</ReactMarkdown>
+      <Card className={`min-h-[600px] sm:min-h-96 overflow-auto w-full sm:!w-[80%] prose dark:prose-invert ${!content ? "items-center justify-center" : ""}`}>
+        {!content && (<Loader />)}
+        {content && <ReactMarkdown>{content}</ReactMarkdown>}
       </Card>
     </div>
   );
