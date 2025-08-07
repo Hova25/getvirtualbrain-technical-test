@@ -1,13 +1,22 @@
-import {Link} from "react-router-dom";
+import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
+import {Link, useLocation} from "react-router-dom";
 
-import {RouterPaths} from "../../App.tsx";
-import {Button} from "../../components/ui/Button.tsx";
-import {Card} from "../../components/ui/Card.tsx";
+import {RouterPaths} from "../../App";
+import {Button} from "../../components/ui/Button";
+import {Card} from "../../components/ui/Card";
 
 export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
 export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
 
+type HomePageState = {
+  pokemon1?: Pokemon,
+  pokemon2?: Pokemon,
+}
+
 export const HomePage = () => {
+  const { state } = useLocation()
+  const { pokemon1, pokemon2 } = (state || {}) as HomePageState
+
   return (
     <Card className="w-full max-w-md p-6 rounded-2xl shadow-xl bg-white/90 backdrop-blur border border-gray-300  gap-4 flex flex-col">
       <h2 className="text-2xl font-bold text-gray-800">Combat Pokémon par IA</h2>

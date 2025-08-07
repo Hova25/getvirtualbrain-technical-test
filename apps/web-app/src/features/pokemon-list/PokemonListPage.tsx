@@ -15,7 +15,7 @@ const PokemonListPage= () => {
   const {state} = useLocation();
   const {step} = (state || {}) as PokemonListPageState;
 
-  const {data: {pokemons = []} = {}, isLoading} = usePokemonList(!!step)
+  const {data: {pokemons = []} = {}, isLoading, isError} = usePokemonList(!!step)
 
   if(!step) {
     return (
@@ -34,14 +34,19 @@ const PokemonListPage= () => {
       </Link>
 
       <PokemonListFilters />
+
       {isLoading && (
         <div className="flex items-center h-full flex-1">
           <div className="text-lg text-center w-full">Loading Pokemons...</div>
         </div>
       )}
-      {!isLoading && (
-        <PokemonList pokemons={pokemons}/>
+      {isError && (
+        <div className="flex items-center h-full flex-1">
+          <div className="text-lg text-center w-full">Une erreur est survenue lors de la réception des pokémons</div>
+        </div>
       )}
+
+      <PokemonList pokemons={pokemons} showList={!isLoading && !isError }/>
     </>
   );
 };

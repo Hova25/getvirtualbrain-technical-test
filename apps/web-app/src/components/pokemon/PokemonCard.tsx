@@ -1,10 +1,13 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC, useCallback, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+
+import {PokemonListPageState} from "../../features/pokemon-list/PokemonListPage.tsx";
 
 import {PokemonTypeImage} from "./PokemonTypeImage";
 
 interface PokemonCardProps {
-    pokemon: Pokemon;
+  pokemon: Pokemon;
 }
 
 function throttle<T extends (...args: any[]) => any>(
@@ -30,6 +33,9 @@ export const MiniCard: FC<PokemonCardProps> = ({ pokemon }) => {
 }
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
+  const {state = {}} = useLocation()
+  const { step } = state as PokemonListPageState;
+  const navigate = useNavigate()
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const onMouseMove = useCallback(
@@ -51,8 +57,18 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const onMouseLeave = () => {
     setRotate({ x: 0, y: 0 });
   };
+
+  const handleSelectPokemon = () => {
+    if(step === "POKEMON_1") {
+      navigate("/", {state: { pokemon1: pokemon }});
+    } else if(step === "POKEMON_2") {
+      navigate("/", {state: { pokemon2: pokemon }});
+    }
+  }
+
   return (
-    <div className="bg-linear-to-r from-amber-300 via-amber-100 to-amber-300  p-1 rounded-2xl w-[250px] shadow-md outline-orange-400 hover:outline-dashed"
+    <div className="cursor-pointer bg-linear-to-r from-amber-300 via-amber-100 to-amber-300  p-1 rounded-2xl w-[250px] shadow-md outline-orange-400 hover:outline-dashed"
+      onClick={handleSelectPokemon}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{
