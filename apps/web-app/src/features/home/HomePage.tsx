@@ -8,7 +8,7 @@ import {Card} from "../../components/ui/Card";
 export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
 export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];
 
-type HomePageState = {
+export type HomePageState = {
   pokemon1?: Pokemon,
   pokemon2?: Pokemon,
 }
@@ -27,7 +27,7 @@ export const HomePage = () => {
       <div className="flex flex-col gap-4">
         <Link
           to={RouterPaths.POKEMON_SELECTION}
-          state={{ step: POKEMON_SELECTION_STEPS[0]}}
+          state={{ step: POKEMON_SELECTION_STEPS[0], ...state}}
           className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
         >
             Choisir le Pokémon 1
@@ -35,7 +35,7 @@ export const HomePage = () => {
 
         <Link
           to={RouterPaths.POKEMON_SELECTION}
-          state={{ step: POKEMON_SELECTION_STEPS[1]}}
+          state={{ step: POKEMON_SELECTION_STEPS[1], ...state}}
           className="w-full px-4 py-2 text-center rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition"
         >
             Choisir le Pokémon 2

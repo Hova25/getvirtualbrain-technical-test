@@ -2,18 +2,18 @@ import PokemonList from './PokemonList';
 import {usePokemonList} from "./PokemonList.api";
 import {PokemonListFilters} from "./filters/PokemonListFilters";
 import {Link, useLocation} from "react-router-dom";
-import {PokemonSelectionStep} from "../home/HomePage.tsx";
+import {HomePageState, PokemonSelectionStep} from "../home/HomePage.tsx";
 import {Card} from '../../components/ui/Card.tsx';
 import {Button} from "../../components/ui/Button.tsx";
 import {IoMdArrowBack} from "react-icons/io";
 
 export type PokemonListPageState = {
   step?: PokemonSelectionStep;
-}
+} & HomePageState
 
 const PokemonListPage= () => {
   const {state} = useLocation();
-  const {step} = (state || {}) as PokemonListPageState;
+  const {step, ...homePageState} = (state || {}) as PokemonListPageState;
 
   const {data: {pokemons = []} = {}, isLoading, isError} = usePokemonList(!!step)
 
@@ -29,7 +29,7 @@ const PokemonListPage= () => {
 
   return (
     <>
-      <Link to={"/"} className={"absolute left-10 top-10 z-50"}>
+      <Link to={"/"} state={homePageState} className={"absolute left-10 top-10 z-50"}>
         <Button><IoMdArrowBack /></Button>
       </Link>
 

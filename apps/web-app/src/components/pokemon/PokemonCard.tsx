@@ -34,7 +34,7 @@ export const MiniCard: FC<PokemonCardProps> = ({ pokemon }) => {
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const {state = {}} = useLocation()
-  const { step } = state as PokemonListPageState;
+  const { step, ...homePageState } = state as PokemonListPageState;
   const navigate = useNavigate()
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
@@ -60,9 +60,9 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
 
   const handleSelectPokemon = () => {
     if(step === "POKEMON_1") {
-      navigate("/", {state: { pokemon1: pokemon }});
+      navigate("/", {state: { ...homePageState, pokemon1: pokemon }});
     } else if(step === "POKEMON_2") {
-      navigate("/", {state: { pokemon2: pokemon }});
+      navigate("/", {state: { ...homePageState, pokemon2: pokemon }});
     }
   }
 
