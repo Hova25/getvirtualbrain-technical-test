@@ -21,7 +21,6 @@ type PokemonSelectionProps = {
 }
 const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
   const { state } = useLocation()
-
   return (
     <>
       {pokemon ?
@@ -33,7 +32,6 @@ const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
           <Button className={"w-full"} variant={"tertiary"}>
             Choisir le Pokémon {step === "POKEMON_1" ? "1" : "2"}
           </Button>
-
         </Link>
       }
     </>
@@ -43,6 +41,8 @@ const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
 export const HomePage = () => {
   const { state } = useLocation()
   const { pokemon1, pokemon2 } = (state || {}) as HomePageState
+
+  const isDisabled= !pokemon1 || !pokemon2
 
   return (
     <Card className="w-full max-w-md p-6 rounded-2xl shadow-xl bg-white/90 backdrop-blur border border-gray-300  gap-4 flex flex-col">
@@ -60,8 +60,11 @@ export const HomePage = () => {
           ⚠️ L’IA décrit le combat en temps réel, avec attaques, suspense et un vainqueur final.
       </p>
 
-      <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}>
-        <Button variant={"secondary"} className={"w-full"}>Lancer le combat !</Button>
+      <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}
+            aria-disabled={isDisabled}
+            className={isDisabled ? "pointer-events-none" : ""}
+      >
+        <Button variant={"secondary"} disabled={isDisabled} className={"w-full"}>Lancer le combat !</Button>
       </Link>
     </Card>
   )
