@@ -8,7 +8,7 @@ export function ScrollTopButton() {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setVisible(window.scrollY > 100);
+      setVisible(window.scrollY > 300);
     };
 
     window.addEventListener("scroll", toggleVisibility);
@@ -24,7 +24,8 @@ export function ScrollTopButton() {
   return (
     <Button
       onClick={scrollToTop}
-      className="fixed bottom-6 right-6 z-50"
+      variant="secondary"
+      className="fixed z-50 bottom-4 right-4 sm:bottom-4 sm:right-10 [&_svg]:size-6"
       aria-label="Remonter en haut"
     >
       <IoMdArrowUp />

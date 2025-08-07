@@ -57,10 +57,10 @@ export const PokemonTypesSelect = () => {
       isMulti
       isSearchable
       name="pokemonTypes"
-      className="w-96 border-amber-300 focus:ring-2 focus:ring-amber-600 dark:text-amber-50"
+      className="w-full sm:w-96 border-amber-300 focus:ring-2 focus:ring-amber-600 dark:text-amber-50"
       classNames={{
         control: ({ isFocused }) =>
-          `dark:!text-amber-50 min-h-[42px] !border !border-amber-300 !rounded-md !bg-transparent focus:!outline-none ${isFocused ? "!ring-2 !ring-amber-600" : ""}`,
+          `dark:!text-amber-50 !min-h-[42px] !border !border-amber-300 !rounded-md !bg-transparent focus:!outline-none ${isFocused ? "!ring-2 !ring-amber-600" : ""}`,
         multiValue: () => "!bg-amber-100 text-amber-600 hover:!bg-amber-200 rounded-md px-1",
         multiValueRemove: () => "hover:!bg-amber-300 rounded-sm cursor-pointer",
         menu: () => "!bg-amber-100",

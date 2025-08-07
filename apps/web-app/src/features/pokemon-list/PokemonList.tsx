@@ -1,7 +1,8 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC} from 'react';
-
-import PokemonCard from '../../components/pokemon/PokemonCard';
+import {PokemonCard} from "../../components/pokemon/PokemonCard.tsx";
+import {Card} from "../../components/ui/Card.tsx";
+import {IoIosWarning} from "react-icons/io";
 
 interface PokemonListProps {
   pokemons: Pokemon[];
@@ -15,11 +16,12 @@ const PokemonList: FC<PokemonListProps> = ({ pokemons, showList }) => {
   return (
     <>
       {pokemons.length === 0 ? (
-        <div className="flex items-center">
-          <div className="text-lg text-center w-full">No Pokemon found</div>
-        </div>
+        <Card className="flex items-center">
+          <IoIosWarning className="text-amber-600 size-20" />
+          <div className="text-lg text-center w-full">Il n'y a pas de pokémon pour cette recherche.</div>
+        </Card>
       ) : (
-        <div className="flex-1 p-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid xl:grid-cols-4 gap-10 place-items-center dark:bg-slate-800">
+        <div className="flex-1 p-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid xl:grid-cols-4 gap-10 place-items-center">
           {pokemons.map((p) => (
             <PokemonCard pokemon={p} key={`pokemon-${p.pokedexId}`} />
           ))}

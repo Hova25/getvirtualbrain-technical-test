@@ -1,62 +1,21 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
-import {FC, useCallback, useState} from "react";
+import {FC} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 import {PokemonListPageState} from "../../features/pokemon-list/PokemonListPage.tsx";
 
-import {PokemonTypeImage} from "./PokemonTypeImage";
-
-interface PokemonCardProps {
-  pokemon: Pokemon;
+type PokemonCardProps = {
+  pokemon: Pokemon
 }
 
-function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  delay: number = 100
-): (...args: Parameters<T>) => void {
-  let lastCall = 0;
-  return (...args: Parameters<T>) => {
-    const now = new Date().getTime();
-    if (now - lastCall < delay) {
-      return;
-    }
-    lastCall = now;
-    return func(...args);
-  };
-}
-
-export const MiniCard: FC<PokemonCardProps> = ({ pokemon }) => {
-  return <div className="bg-amber-300 rounded-2xl p-2 h-[40px] flex items-center">
-    <img src={pokemon.image} alt={pokemon.name} style={{ height: '100%' }} />
-    <div className="text-center ml-2">{pokemon.name}</div>
-  </div>;
-}
-
-const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
+export const PokemonCard: FC<PokemonCardProps> = ({pokemon}) => {
   const {state = {}} = useLocation()
   const { step, ...homePageState } = state as PokemonListPageState;
   const navigate = useNavigate()
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
-  const onMouseMove = useCallback(
-    throttle((e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      const box = card.getBoundingClientRect();
-      const x = e.clientX - box.left;
-      const y = e.clientY - box.top;
-      const centerX = box.width / 2;
-      const centerY = box.height / 2;
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-
-      setRotate({ x: rotateX, y: rotateY });
-    }),
-    []
-  );
-
-  const onMouseLeave = () => {
-    setRotate({ x: 0, y: 0 });
-  };
+  const imageTypeWidth = 20;
+  const totalWidth = pokemon.apiTypes.length * imageTypeWidth;
+  const startX = 150 - totalWidth / 2;
 
   const handleSelectPokemon = () => {
     if(step === "POKEMON_1") {
@@ -66,33 +25,75 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
     }
   }
 
-  return (
-    <div className="cursor-pointer bg-linear-to-r from-amber-300 via-amber-100 to-amber-300  p-1 rounded-2xl w-[250px] shadow-md outline-orange-400 hover:outline-dashed"
-      onClick={handleSelectPokemon}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{
-        transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale3d(1, 1, 1)`,
-        transition: "all 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
-      }}
-    >
-      <div className="rounded-2xl bg-linear-to-br from-black/10 via-white/70 to-black/10">
-        <div className="p-4 flex-col rounded-2xl">
-          <div className='flex gap-3 justify-between'>
-            <div className='font-bold'>{pokemon.name}</div>
-            <div>HP: {pokemon.stats.HP}</div>
-            {pokemon.apiTypes.map((pokemonType) => (
-              <PokemonTypeImage key={pokemonType.name} className="self-end" pokemonType={pokemonType} />
-            ))}
-          </div>
-          <img className="bg-white dark:bg-blue-950 outline-solid outline-2 my-3" src={pokemon.image} alt={pokemon.name} style={{ width: 'auto' }} />
-          <div>Attack: {pokemon.stats.attack}</div>
-          <div>Defense: {pokemon.stats.defense}</div>
-          <div>Speed: {pokemon.stats.speed}</div>
-        </div>
-      </div>
+  return(
+    <div onClick={handleSelectPokemon} className="[clip-path:circle(50%)] cursor-pointer hover:scale-105 transition-transform duration-300">
+      <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.6" y="0.6" width="298.8" height="298.8" rx="149.4" fill="white"/>
+        <rect x="0.6" y="0.6" width="298.8" height="298.8" rx="149.4" stroke="black" strokeWidth="1.2"/>
+        <path d="M0 150C0 67.1573 67.1573 0 150 0V0C232.843 0 300 67.1573 300 150V159H0V150Z" fill="#D90218"/>
+        <rect y="138" width="300" height="24" fill="black"/>
+        <g>
+          <rect x="24.0002" y="24" width="252" height="252" rx="126" fill="white"/>
+          <circle cx="150" cy="150" r="114" stroke="black" strokeWidth="24"/>
+
+          <image
+            href={pokemon.image}
+            x="80"
+            y="16"
+            width="140"
+            height="140"
+          />
+          <g>
+            <g>
+              {pokemon.apiTypes.map((t, index) => (
+                <image
+                  key={t.name}
+                  href={t.image}
+                  x={startX + index * imageTypeWidth}
+                  y="150"
+                  width={imageTypeWidth}
+                  height="20"
+                />
+              ))}
+            </g>
+            <text x="150" y="180" fontWeight="600" textAnchor="middle" fontSize="14" fill="black">
+              {pokemon.name}
+            </text>
+            <g>
+              <text x="160" y="200" textAnchor="end" fontSize="16" fill="black">
+              HP:
+              </text>
+              <text x="164" y="200" fontWeight="600" textAnchor="start" fontSize="14" fill="black">
+                {pokemon.stats.HP}
+              </text>
+            </g>
+            <g>
+              <text x="160" y="212" textAnchor="end" fontSize="14" fill="black">
+              Attack:
+              </text>
+              <text x="164" y="212" fontWeight="600" textAnchor="start" fontSize="14" fill="black">
+                {pokemon.stats.attack}
+              </text>
+            </g>
+            <g>
+              <text x="160" y="224" textAnchor="end" fontSize="14" fill="black">
+              Defense:
+              </text>
+              <text x="164" y="224" fontWeight="600" textAnchor="start" fontSize="14" fill="black">
+                {pokemon.stats.defense}
+              </text>
+            </g>
+            <g>
+              <text x="160" y="236" textAnchor="end" fontSize="14" fill="black">
+              Speed:
+              </text>
+              <text x="164" y="236" fontWeight="semibold" textAnchor="start" fontSize="14" fill="black">
+                {pokemon.stats.speed}
+              </text>
+            </g>
+          </g>
+        </g>
+      </svg>
     </div>
   )
 }
-
-export default PokemonCard;
