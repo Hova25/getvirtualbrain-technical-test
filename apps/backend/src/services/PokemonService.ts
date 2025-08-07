@@ -19,7 +19,7 @@ let listPokemons: Pokemon[] = [];
  * Ici je passe un objet et nom des paramètres "simples" pour pouvoir facilement ajouter des paramètres
  * dans le futur sans avoir à modifier la signature de la fonction.
  */
-export async function fetchAllPokemons({search = "", types = []}: {search?: string, types?: string[]} = {}): Promise<Pokemon[]> {
+export async function fetchAllPokemons({search = "", types = [], names}: {search?: string, types?: string[], names?: string[]} = {}): Promise<Pokemon[]> {
   if(listPokemons.length === 0) {
     const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`)
     if(result.data) {
@@ -27,7 +27,9 @@ export async function fetchAllPokemons({search = "", types = []}: {search?: stri
     }
   }
 
-  console.log(listPokemons.length)
+  if(names && names.length > 0) {
+    return listPokemons.filter(({name}) => names.includes(name))
+  }
 
   /**
    * Ici je fais un filtrage en mode "OU" sur les types de pokémons.
