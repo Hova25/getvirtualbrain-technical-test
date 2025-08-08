@@ -5,6 +5,7 @@
     "dev": "pnpm --parallel --filter \"@getvirtualbrain-technical-test/*\" dev",
     "build": "pnpm  --filter \"@getvirtualbrain-technical-test/*\" build",
     "lint": "pnpm --parallel  --filter \"@getvirtualbrain-technical-test/*\" lint",
+    "test": "pnpm --parallel  --filter \"@getvirtualbrain-technical-test/*\" test",
     "clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
   },
   "devDependencies": {

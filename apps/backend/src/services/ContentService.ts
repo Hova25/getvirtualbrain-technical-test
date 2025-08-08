@@ -41,7 +41,7 @@ ${apiResistances
     .join('\n')}
 
 ## Évolution
-- **Pré-évolution**: ${apiPreEvolution?.name || 'Aucune'} (ID: ${apiPreEvolution?.pokedexId || 'N/A'})
+- **Pré-évolution**: ${apiPreEvolution !== "none" && apiPreEvolution.name ? apiPreEvolution.name : 'Aucune'} (ID: ${apiPreEvolution !== "none" && apiPreEvolution.pokedexId ?  apiPreEvolution?.pokedexId : 'N/A'})
 - **Évolutions possibles**: ${apiEvolutions.map((e) => `${e.name} (ID: ${e.pokedexId})`).join(', ') || 'Aucune'}
 `;
 }
