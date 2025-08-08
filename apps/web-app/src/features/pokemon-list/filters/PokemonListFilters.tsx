@@ -25,7 +25,7 @@ export const PokemonListFilters = () => {
       )}
     </div>
 
-    <div className="flex flex-col md:flex-row  gap-4">
+    <div className="flex flex-col md:flex-row items-center gap-4">
       <FilterInput />
       <PokemonTypesSelect />
     </div>

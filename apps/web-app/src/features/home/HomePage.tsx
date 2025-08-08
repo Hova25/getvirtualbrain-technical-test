@@ -1,5 +1,5 @@
 import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import {RouterPaths} from "../../App";
 import {Button} from "../../components/ui/Button";
@@ -42,8 +42,9 @@ const PokemonSelection: FC<PokemonSelectionProps> = ({pokemon, step}) => {
 export const HomePage = () => {
   const { state } = useLocation()
   const { pokemon1, pokemon2 } = (state || {}) as HomePageState
+  const navigate = useNavigate()
 
-  const isSamePokemons = pokemon1.pokedexId === pokemon2.pokedexId
+  const isSamePokemons = pokemon1 && pokemon2 && pokemon1.pokedexId === pokemon2.pokedexId
   const isDisabled= !pokemon1 || !pokemon2 || isSamePokemons
 
   return (
@@ -70,12 +71,15 @@ export const HomePage = () => {
       {isSamePokemons && (
         <span className={"text-xs  text-red-600"}>Vous ne pouvez pas choisir deux fois le même Pokémon… On ne fait pas se battre les frères entre eux !</span>
       )}
-      <Link to={`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`}
-            aria-disabled={isDisabled}
-            className={isDisabled ? "pointer-events-none" : ""}
+
+      <Button
+        variant={"secondary"}
+        onClick={()=> navigate(`${RouterPaths.BATTLE}/${pokemon1?.name},${pokemon2?.name}`)}
+        disabled={isDisabled}
+        className={"w-full disabled:!cursor-not-allowed"}
       >
-        <Button variant={"secondary"} disabled={isDisabled} className={"w-full"}>Lancer le combat !</Button>
-      </Link>
+        Lancer le combat !
+      </Button>
     </Card>
   )
 }

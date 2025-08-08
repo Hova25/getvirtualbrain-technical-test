@@ -49,12 +49,12 @@ export const BattlePage = () => {
         <PokemonSmallCard pokemon={pokemon2} />
       </div>
 
-      <Card className={`min-h-[600px] sm:min-h-96 overflow-auto w-full sm:!w-[80%] max-w-4xl prose dark:prose-invert ${!content ? "items-center justify-center" : ""}`}>
+      <Card className={`min-h-[600px] sm:min-h-96 p-4 overflow-auto w-full sm:!w-[80%] max-w-4xl prose dark:prose-invert ${!content ? "items-center justify-center" : ""}`}>
         {!content && !isErrorInStream && (<Loader />)}
         {isErrorInStream && (
           <div className="flex flex-col gap-4 items-center justify-center ">
             <IoIosWarning className="text-red-600 size-20" />
-            <span>Une erreur est surevenu avec le Bot IA GetVirtualBrain ! Vérifiez votre token ou le ChatBotId !</span>
+            <span>Une erreur est survenue avec le Bot IA GetVirtualBrain ! Vérifiez votre token ou le ChatBotId !</span>
           </div>
         )}
         {content && <ReactMarkdown>{content}</ReactMarkdown>}
