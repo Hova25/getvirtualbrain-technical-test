@@ -34,6 +34,6 @@ export const FilterInput = () => {
   }, [searchParamsValue]);
 
   return (
-    <Input value={value} placeholder="Nom du pokémon" className="self-start" onChange={handleSearchChange} />
+    <Input data-testid="selection-search-input" value={value} placeholder="Nom du pokémon" className="self-start" onChange={handleSearchChange} />
   )
 }

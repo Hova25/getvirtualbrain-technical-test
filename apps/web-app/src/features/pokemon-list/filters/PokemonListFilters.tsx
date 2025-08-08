@@ -19,7 +19,7 @@ export const PokemonListFilters = () => {
 
   return <Card className="py-4 flex flex-col gap-4 items-center justify-center z-40 ">
     <div className="flex flex-row justify-between w-full items-center">
-      <span>Selection du {step === "POKEMON_1"? "premier" : "second"} Pokemon !</span>
+      <span data-testid="selection-info">Selection du {step === "POKEMON_1"? "premier" : "second"} Pokemon !</span>
       {searchParams.size > 0 && (
         <Button variant="secondary" onClick={handleCleanFilters}><IoRefresh /></Button>
       )}
