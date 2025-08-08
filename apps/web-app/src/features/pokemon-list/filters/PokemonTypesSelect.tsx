@@ -63,6 +63,7 @@ export const PokemonTypesSelect = () => {
       value={pokemonTypes?.filter((type) => selectedTypes?.includes(type.name))}
       isMulti
       isSearchable
+      aria-label="Selectionnez un type de pokémon"
       name="pokemonTypes"
       className="w-full sm:w-96 border-amber-300 focus:ring-2 focus:ring-amber-600 dark:!text-gray-200"
       classNames={{

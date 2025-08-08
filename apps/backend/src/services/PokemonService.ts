@@ -67,3 +67,7 @@ export async function fetchPokemonById(id: string): Promise<Pokemon> {
     }
   })
 }
+
+export const __setListPokemons = (list: Pokemon[]) => {
+  listPokemons = list;
+};

@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:test": "vite --port 5174",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:codegen": "playwright codegen"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.84.1",
@@ -24,6 +28,7 @@
   },
   "devDependencies": {
     "@getvirtualbrain-technical-test/shared-types": "workspace:*",
+    "@playwright/test": "^1.54.2",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",

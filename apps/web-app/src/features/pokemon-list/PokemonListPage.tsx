@@ -22,8 +22,8 @@ const PokemonListPage= () => {
   if(!step) {
     return (
       <Card className={"items-center"}>
-        <span>Vous devez d'abord passer par la page d'accueil pour sélectionner un pokémon !</span>
-        <Link to={RouterPaths.HOME}><Button>Retourner sur la page d'accueil</Button></Link>
+        <span data-testid={"selection-needed"}>Vous devez d'abord passer par la page d'accueil pour sélectionner un pokémon !</span>
+        <Link to={RouterPaths.HOME} data-testid={"redirect-to-home"}><Button>Retourner sur la page d'accueil</Button></Link>
       </Card>
     )
   }

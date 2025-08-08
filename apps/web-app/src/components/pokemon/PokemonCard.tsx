@@ -71,6 +71,7 @@ export const PokemonCard: FC<PokemonCardProps> = ({pokemon}) => {
         transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale3d(1, 1, 1)`,
         transition: "all 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99) 0s",
       }}
+      data-testid={`card-${name}`}
     >
       <div className="absolute top-0 left-0 w-full h-1/2 bg-red-600" />
       <div className="absolute top-1/2 left-0 w-full h-[24px] bg-black -translate-y-1/2" />

@@ -18,7 +18,7 @@ export const PokemonSmallCard: FC<PokemonSmallCard> = ({pokemon, step}) => {
   const {state = {}} = useLocation()
   const {name, image,apiTypes, stats} = pokemon
   return (
-    <Card className="flex flex-row items-center w-full !gap-2 px-1 sm:!gap-8 h-40 dark:!bg-gray-600">
+    <Card data-testid={`small-card-${step}`} className="flex flex-row items-center w-full !gap-2 px-1 sm:!gap-8 h-40 dark:!bg-gray-600">
       <div className="flex flex-col items-center">
         <img className="w-28" src={image} alt={name}  />
         <span className="font-bold">
@@ -39,7 +39,7 @@ export const PokemonSmallCard: FC<PokemonSmallCard> = ({pokemon, step}) => {
         </ul>
       </div>
       {step && (
-        <Link to={RouterPaths.POKEMON_SELECTION} state={{...state, step}} className="[&_svg]:size-8 md:[&_svg]:size-12 group cursor-pointer">
+        <Link  to={RouterPaths.POKEMON_SELECTION} state={{...state, step}} className="[&_svg]:size-8 md:[&_svg]:size-12 group cursor-pointer">
           <LuRefreshCw className="text-amber-300 group-hover:text-amber-400" />
         </Link>
       )}

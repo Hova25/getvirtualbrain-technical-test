@@ -53,7 +53,7 @@ export default tseslint.config(
       "no-nested-ternary": "error",
       "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1, maxBOF: 0 }],
       "no-console": ["warn", { allow: ["warn", "error"] }],
-      "indent": ["error", 2]
+      // "indent": ["error", 2]
     }
   }
 )
