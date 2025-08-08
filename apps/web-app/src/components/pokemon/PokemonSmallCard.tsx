@@ -18,7 +18,7 @@ export const PokemonSmallCard: FC<PokemonSmallCard> = ({pokemon, step}) => {
   const {state = {}} = useLocation()
   const {name, image,apiTypes, stats} = pokemon
   return (
-    <Card className="flex flex-row items-center !gap-2 px-1 sm:!gap-8 h-40">
+    <Card className="flex flex-row items-center w-full !gap-2 px-1 sm:!gap-8 h-40 dark:!bg-gray-600">
       <div className="flex flex-col items-center">
         <img className="w-28" src={image} alt={name}  />
         <span className="font-bold">

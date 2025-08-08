@@ -6,8 +6,8 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: 'bg-blue-500 hover:bg-blue-700 text-white',
-      secondary: 'text-gray-800 bg-amber-300 hover:bg-amber-400',
-      tertiary: 'border border-gray-300 bg-white hover:bg-gray-50 '
+      secondary: 'text-gray-800 bg-amber-300 hover:bg-amber-400 disabled:bg-amber-200',
+      tertiary: 'border border-gray-300 bg-white hover:bg-gray-100 dark:bg-gray-900 hover:dark:bg-gray-700'
     },
   },
   defaultVariants: {

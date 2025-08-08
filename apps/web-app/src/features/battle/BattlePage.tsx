@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState} from "react";
-import {IoIosHome} from "react-icons/io";
+import {useEffect} from "react";
+import {IoIosHome, IoIosWarning} from "react-icons/io";
 import ReactMarkdown from "react-markdown";
 import {Link} from "react-router-dom";
 
@@ -8,72 +8,16 @@ import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
 import {Button} from "../../components/ui/Button.tsx";
 import {Card} from "../../components/ui/Card.tsx";
 import {Loader} from "../../components/ui/Loader.tsx";
-import {CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL} from "../../utils/ShortEnv.ts";
 
-import {usePokemonListByNames} from "./BattlePage.api.ts";
+import {usePokemonBattleStream, usePokemonListByNames} from "./BattlePage.api.ts";
 
 export const BattlePage = () => {
   const { data, isLoading, isError } = usePokemonListByNames();
-  const [content, setContent] = useState("");
-  const bufferRef = useRef("");
-
   const { pokemons = [] } = data || {};
   const pokemon1 = pokemons[0];
   const pokemon2 = pokemons[1];
 
-  const fetchStreamedText = async () => {
-    if (!pokemon1 || !pokemon2) return;
-
-    const prompt = `
-Tu es un narrateur épique de combats Pokémon.
-Décris un combat intense entre ${pokemon1.name} et ${pokemon2.name}.
-Utilise un ton dynamique, décris les attaques, les réactions, et la conclusion du combat.
-Ne révèle pas tout d’un coup, laisse le suspense en construisant progressivement.
-Il faut absolument que tu énonce le vainqueur.
-
-Commence maintenant :
-`;
-
-    const response = await fetch(
-      `${CHAT_BOT_URL}/open-completion/${CHAT_BOT_ID}/query?query=${encodeURIComponent(prompt)}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${CHAT_BOT_TOKEN}`,
-          Accept: "text/plain",
-        },
-      }
-    );
-
-    const reader = response.body?.getReader();
-    const decoder = new TextDecoder();
-
-    if (!reader) return;
-
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-
-      const chunk = decoder.decode(value, { stream: true });
-      bufferRef.current += chunk;
-
-      const safeIndex = Math.max(
-        bufferRef.current.lastIndexOf(" "),
-        bufferRef.current.lastIndexOf("."),
-        bufferRef.current.lastIndexOf("\n")
-      );
-
-      if (safeIndex !== -1) {
-        const safeText = bufferRef.current.slice(0, safeIndex + 1);
-        setContent((prev) => prev + safeText);
-        bufferRef.current = bufferRef.current.slice(safeIndex + 1);
-      }
-    }
-
-    // dernier flush
-    setContent((prev) => prev + bufferRef.current);
-    bufferRef.current = "";
-  };
+  const {fetchStreamedText, content, isError: isErrorInStream} = usePokemonBattleStream(pokemon1, pokemon2);
 
   useEffect(() => {
     fetchStreamedText();
@@ -105,16 +49,21 @@ Commence maintenant :
         <PokemonSmallCard pokemon={pokemon2} />
       </div>
 
-      <Card className={`min-h-[600px] sm:min-h-96 overflow-auto w-full sm:!w-[80%] prose dark:prose-invert ${!content ? "items-center justify-center" : ""}`}>
-        {!content && (<Loader />)}
+      <Card className={`min-h-[600px] sm:min-h-96 p-4 overflow-auto w-full sm:!w-[80%] max-w-4xl prose dark:prose-invert ${!content ? "items-center justify-center" : ""}`}>
+        {!content && !isErrorInStream && (<Loader />)}
+        {isErrorInStream && (
+          <div className="flex flex-col gap-4 items-center justify-center ">
+            <IoIosWarning className="text-red-600 size-20" />
+            <span>Une erreur est survenue avec le Bot IA GetVirtualBrain ! Vérifiez votre token ou le ChatBotId !</span>
+          </div>
+        )}
         {content && <ReactMarkdown>{content}</ReactMarkdown>}
       </Card>
-      <Link to={RouterPaths.HOME}>
-        <Button variant="secondary" className="fixed top-10 left-10" title="Retourner à l'acceuil">
+      <Link className="fixed top-4 left-4 sm:top-4 sm:left-10  z-50" to={RouterPaths.HOME}>
+        <Button variant="secondary" className="[&_svg]:size-6" title="Retourner à l'acceuil">
           <IoIosHome />
         </Button>
       </Link>
-
     </div>
   );
 };

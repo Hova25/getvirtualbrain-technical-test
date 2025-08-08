@@ -1,5 +1,5 @@
 import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useSearchParams} from "react-router-dom";
 import Select, {components, GroupBase, MultiValue, MultiValueGenericProps, OptionProps} from "react-select";
 
@@ -37,7 +37,8 @@ export const PokemonTypesSelect = () => {
   // Sinon, le composant ne se mettrait pas à jour immédiatement et on aurait un problème de performance.
   const [searchParams, setSearchParams] = useSearchParams();
   const {state} = useLocation()
-  const [selectedTypes, setSelectedTypes] = useState<string[] | undefined>(searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES)?.split(","));
+  const searchParamsValue = searchParams.get(POKEMON_LIST_SEARCH_PARAM_TYPES)?.split(",")
+  const [selectedTypes, setSelectedTypes] = useState<string[] | undefined>();
   const {data: pokemonTypes} = useGetPokemonTypes()
 
   const handleChange = (newValue: MultiValue<PokemonType>) => {
@@ -51,20 +52,28 @@ export const PokemonTypesSelect = () => {
     setSearchParams(searchParams, {state})
   }
 
+  useEffect(() => {
+    if(searchParamsValue?.length !== selectedTypes?.length) {
+      setSelectedTypes(searchParamsValue);
+    }
+  }, [searchParamsValue]);
+
   return (
     <Select
       value={pokemonTypes?.filter((type) => selectedTypes?.includes(type.name))}
       isMulti
       isSearchable
       name="pokemonTypes"
-      className="w-96 border-amber-300 focus:ring-2 focus:ring-amber-600 dark:text-amber-50"
+      className="w-full sm:w-96 border-amber-300 focus:ring-2 focus:ring-amber-600 dark:!text-gray-200"
       classNames={{
         control: ({ isFocused }) =>
-          `dark:!text-amber-50 min-h-[42px] !border !border-amber-300 !rounded-md !bg-transparent focus:!outline-none ${isFocused ? "!ring-2 !ring-amber-600" : ""}`,
-        multiValue: () => "!bg-amber-100 text-amber-600 hover:!bg-amber-200 rounded-md px-1",
+          `!min-h-[42px] !border !border-amber-300 !rounded-md !bg-gray-200 dark:!bg-gray-900 focus:!outline-none ${isFocused ? "!ring-2 !ring-amber-600" : ""}`,
+        multiValue: () => "!bg-amber-200 text-amber-600 hover:!bg-amber-300 rounded-md px-1",
         multiValueRemove: () => "hover:!bg-amber-300 rounded-sm cursor-pointer",
-        menu: () => "!bg-amber-100",
-        option: ({ isFocused, isSelected }) => ` !text-black ${isFocused ? "!bg-amber-300" : "!bg-amber-100"} ${isSelected ? "!bg-amber-200" : ""}`
+        menu: () => "!bg-gray-200 dark:!bg-gray-800",
+        input:() => "dark:!text-gray-200",
+        dropdownIndicator: () => "dark:!text-gray-200",
+        option: ({ isFocused, isSelected }) => `transition-colors ${isFocused ? "!bg-amber-300 dark:!text-gray-800" : "!text-black !bg-gray-200 dark:!text-gray-200 dark:!bg-gray-800"} ${isSelected ? "!bg-amber-200" : ""}`
       }}
       options={pokemonTypes}
       onChange={handleChange}

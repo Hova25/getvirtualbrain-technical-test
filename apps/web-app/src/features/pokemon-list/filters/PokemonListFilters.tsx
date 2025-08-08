@@ -17,15 +17,15 @@ export const PokemonListFilters = () => {
     setSearchParams(new URLSearchParams(), {state});
   }
 
-  return <Card className="py-4 flex flex-col gap-4 items-center justify-center z-40">
+  return <Card className="py-4 flex flex-col gap-4 items-center justify-center z-40 ">
     <div className="flex flex-row justify-between w-full items-center">
       <span>Selection du {step === "POKEMON_1"? "premier" : "second"} Pokemon !</span>
       {searchParams.size > 0 && (
-        <Button onClick={handleCleanFilters}><IoRefresh /></Button>
+        <Button variant="secondary" onClick={handleCleanFilters}><IoRefresh /></Button>
       )}
     </div>
 
-    <div className="flex flex-col md:flex-row  gap-4">
+    <div className="flex flex-col md:flex-row items-center gap-4">
       <FilterInput />
       <PokemonTypesSelect />
     </div>
