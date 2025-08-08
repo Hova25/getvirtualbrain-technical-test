@@ -9,15 +9,15 @@
 > Sinon installer pnpm : `npm install -g pnpm`
 
 
-Pour pouvoir lancer les tests e2e playwright il faut avoir les browsers installé
+Pour pouvoir lancer les tests e2e playwright installer:
 `pnpx playwright install`
 
 ## Premier lancement
 
 À la racine du projet lancez : `pnpm install`
-Tous les node_modules du mono repo vont s'installer
+Afin d'installer tous les node_modules du mono repo.
 
-Pensez à modifier le .env.local dans apps/web-app/env.local (j'ai commit les clefs mais c'est vraiment juste pour le test)
+Pensez à modifier le .env.local dans apps/web-app/env.local (j'ai ajouté les clés mais c'est juste pour le test)
 
 ```VITE_CHAT_BOT_TOKEN, VITE_CHAT_BOT_ID```
 
@@ -32,7 +32,7 @@ Pour installer un nouveau package vous pouvez faire pour le backend
 
 Pour lancer les tests à la racine du projet, vous pouvez faire `pnpm test`
 
-> Attention pour que les tests E2E fonctionnent, il faut lancer le backend `pnpm dev` qui lancera le back et le front ou `pnpm --filter backend dev` (je n'ai pas pris le temps de le configurer afin que cela ne soit pas nécessaire)
+> Attention pour que les tests E2E fonctionnent, il faut lancer le backend `pnpm dev` qui lancera le back et le front ou `pnpm --filter backend dev`.
 
 Pour lancer l'UI de playwright vous pouvez faire `pnpm --filter web-app test:ui`
 
@@ -43,6 +43,6 @@ Je tiens à m’excuser de ne pas avoir pris le temps de configurer correctement
 
 De même, l’ajout de Prettier pour standardiser l’indentation et limiter la longueur des lignes aurait amélioré la lisibilité du code, mais je n’ai malheureusement pas pu l’intégrer à temps.
 
-À noter également que je sais mettre en ligne ce type de projet facilement et mettre en place un pipeline CI/CD avec GitHub Actions. Je n’ai toutefois pas eu le temps de le faire ici.
+À noter également que je sais mettre en ligne ce type de projet facilement et mettre en place un pipeline CI/CD avec GitHub Actions.
 
 >Je vous remercie sincèrement pour le temps que vous consacrerez à la lecture de ce test, et reste bien sûr disponible à tout moment si vous rencontrez le moindre souci en l’examinant.
