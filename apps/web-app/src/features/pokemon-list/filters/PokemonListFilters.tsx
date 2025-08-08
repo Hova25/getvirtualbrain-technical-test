@@ -17,7 +17,7 @@ export const PokemonListFilters = () => {
     setSearchParams(new URLSearchParams(), {state});
   }
 
-  return <Card className="py-4 flex flex-col gap-4 items-center justify-center z-40 ">
+  return <Card className="py-4 flex flex-col gap-4 items-center justify-center z-40  w-full sm:w-fit">
     <div className="flex flex-row justify-between w-full items-center">
       <span data-testid="selection-info">Selection du {step === "POKEMON_1"? "premier" : "second"} Pokemon !</span>
       {searchParams.size > 0 && (
@@ -25,7 +25,7 @@ export const PokemonListFilters = () => {
       )}
     </div>
 
-    <div className="flex flex-col md:flex-row items-center gap-4">
+    <div className="flex flex-col md:flex-row items-center gap-4 w-full">
       <FilterInput />
       <PokemonTypesSelect />
     </div>

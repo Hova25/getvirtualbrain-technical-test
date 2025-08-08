@@ -54,7 +54,7 @@ export const BattlePage = () => {
         {isErrorInStream && (
           <div className="flex flex-col gap-4 items-center justify-center ">
             <IoIosWarning className="text-red-600 size-20" />
-            <span>Une erreur est survenue avec le Bot IA GetVirtualBrain ! Vérifiez votre token ou le ChatBotId !</span>
+            <span className="text-center">Une erreur est survenue avec le Bot IA GetVirtualBrain ! Vérifiez votre token ou le ChatBotId !</span>
           </div>
         )}
         {content && <ReactMarkdown>{content}</ReactMarkdown>}
