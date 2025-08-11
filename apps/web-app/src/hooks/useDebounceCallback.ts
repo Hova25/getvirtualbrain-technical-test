@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef} from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * J'ai utilisé un hook personnalisé pour ne pas rajouter de dépendence en plus (lodash.debounce).
@@ -8,7 +8,7 @@ import {useCallback, useEffect, useRef} from "react";
  */
 export function useDebounceCallback<T extends (...args: never[]) => void>(
   callback: T,
-  delay: number
+  delay: number,
 ) {
   const timeoutRef = useRef<number | null>(null);
   const callbackRef = useRef(callback);
@@ -27,7 +27,7 @@ export function useDebounceCallback<T extends (...args: never[]) => void>(
         callbackRef.current(...args);
       }, delay);
     },
-    [delay]
+    [delay],
   );
 
   useEffect(() => {

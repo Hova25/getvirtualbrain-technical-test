@@ -1,30 +1,30 @@
-import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
-import {useQuery} from "@tanstack/react-query";
-import {useRef, useState} from "react";
-import {useParams} from "react-router-dom";
+import { Pokemon } from "@getvirtualbrain-technical-test/shared-types";
+import { useQuery } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import {axiosInstance} from "@/utils/AxiosInstance";
-import {CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL} from "@/utils/ShortEnv";
+import { axiosInstance } from "@/utils/AxiosInstance";
+import { CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL } from "@/utils/ShortEnv";
 
 export const usePokemonListByNames = () => {
   const { names: paramsNames } = useParams<{ names: string }>();
-  const names =  paramsNames?.split(",") ||[];
+  const names = paramsNames?.split(",") || [];
 
   return useQuery({
-    queryKey: ['pokemonList', {names}],
+    queryKey: ["pokemonList", { names }],
     queryFn: async () => {
-      const response = await axiosInstance.get<{pokemons: Pokemon[]}>(`pokemons`, {
+      const response = await axiosInstance.get<{ pokemons: Pokemon[] }>(`pokemons`, {
         params: {
-          names: paramsNames
-        }
-      })
-      return response.data
+          names: paramsNames,
+        },
+      });
+      return response.data;
     },
     enabled: names.length > 0,
     // la liste n'est pas supposé être modifié, je mets ici Infinity qui permet de ne pas faire de requête à chaque fois que l'on change de page par exemple, ou que les filtres changent
-    staleTime: Infinity
+    staleTime: Infinity,
   });
-}
+};
 
 export const usePokemonBattleStream = (pokemon1?: Pokemon, pokemon2?: Pokemon) => {
   const [content, setContent] = useState("");
@@ -53,13 +53,13 @@ Commence maintenant :
             Authorization: `Bearer ${CHAT_BOT_TOKEN}`,
             Accept: "text/plain",
           },
-        }
+        },
       );
 
-      if(!response.ok) {
-        setIsError(true)
+      if (!response.ok) {
+        setIsError(true);
       } else {
-        setIsError(false)
+        setIsError(false);
       }
 
       const reader = response.body?.getReader();
@@ -77,7 +77,7 @@ Commence maintenant :
         const safeIndex = Math.max(
           bufferRef.current.lastIndexOf(" "),
           bufferRef.current.lastIndexOf("."),
-          bufferRef.current.lastIndexOf("\n")
+          bufferRef.current.lastIndexOf("\n"),
         );
 
         if (safeIndex !== -1) {
@@ -90,13 +90,13 @@ Commence maintenant :
       setContent((prev) => prev + bufferRef.current);
       bufferRef.current = "";
     } catch {
-      setIsError(true)
+      setIsError(true);
     }
   };
 
   return {
     content,
     isError,
-    fetchStreamedText
-  }
-}
+    fetchStreamedText,
+  };
+};

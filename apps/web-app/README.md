@@ -1,5 +1,4 @@
-To install and launch: 
+To install and launch:
 
-npm install 
+npm install
 npm run dev
-

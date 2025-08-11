@@ -1,7 +1,7 @@
-import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
-import axios from 'axios';
+import { Pokemon } from "@getvirtualbrain-technical-test/shared-types";
+import axios from "axios";
 
-const POKEMON_API_URL = 'https://pokebuildapi.fr/api/v1'
+const POKEMON_API_URL = "https://pokebuildapi.fr/api/v1";
 
 /**
  * Je créé une liste in memory ici pour éviter de faire des appels à l'API à chaque fois et gagner en performance.
@@ -19,16 +19,20 @@ let listPokemons: Pokemon[] = [];
  * Ici je passe un objet et nom des paramètres "simples" pour pouvoir facilement ajouter des paramètres
  * dans le futur sans avoir à modifier la signature de la fonction.
  */
-export async function fetchAllPokemons({search = "", types = [], names}: {search?: string, types?: string[], names?: string[]} = {}): Promise<Pokemon[]> {
-  if(listPokemons.length === 0) {
-    const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`)
-    if(result.data) {
-      listPokemons = result.data
+export async function fetchAllPokemons({
+  search = "",
+  types = [],
+  names,
+}: { search?: string; types?: string[]; names?: string[] } = {}): Promise<Pokemon[]> {
+  if (listPokemons.length === 0) {
+    const result = await axios.get<Pokemon[]>(`${POKEMON_API_URL}/pokemon`);
+    if (result.data) {
+      listPokemons = result.data;
     }
   }
 
-  if(names && names.length > 0) {
-    return listPokemons.filter(({name}) => names.includes(name))
+  if (names && names.length > 0) {
+    return listPokemons.filter(({ name }) => names.includes(name));
   }
 
   /**
@@ -37,15 +41,17 @@ export async function fetchAllPokemons({search = "", types = [], names}: {search
    * J'aurais pu faire un filtrage en mode "ET" mais cela aurait été plus restrictif
    * et donc moins de pokémons seraient retournés.
    */
-  const pokemons = (search || types.length > 0)
-    ? listPokemons.filter(({name, apiTypes}) => {
-      const apiTypesNames = apiTypes.map((apiType) => apiType.name);
-      const isInQueryTypesArray = types.length === 0 || apiTypesNames.some(apiTypeName => types.includes(apiTypeName));
-      return isInQueryTypesArray && name.toLowerCase().includes(search.toLowerCase())
-    })
-    : listPokemons;
+  const pokemons =
+    search || types.length > 0
+      ? listPokemons.filter(({ name, apiTypes }) => {
+          const apiTypesNames = apiTypes.map((apiType) => apiType.name);
+          const isInQueryTypesArray =
+            types.length === 0 || apiTypesNames.some((apiTypeName) => types.includes(apiTypeName));
+          return isInQueryTypesArray && name.toLowerCase().includes(search.toLowerCase());
+        })
+      : listPokemons;
 
-  return pokemons
+  return pokemons;
 }
 
 /**
@@ -53,19 +59,19 @@ export async function fetchAllPokemons({search = "", types = [], names}: {search
  * Toujours dans le but de faire moins d'appels à l'API externe et de gagner en performance.
  */
 export async function fetchPokemonById(id: string): Promise<Pokemon> {
-  if(listPokemons.length === 0) {
+  if (listPokemons.length === 0) {
     const result = await axios.get<Pokemon>(`${POKEMON_API_URL}/pokemon/${id}`);
     return result.data;
   }
 
   return new Promise((resolve, reject) => {
-    const pokemon = listPokemons.find(pokemon => pokemon.pokedexId.toString() === id)
-    if(pokemon) {
+    const pokemon = listPokemons.find((pokemon) => pokemon.pokedexId.toString() === id);
+    if (pokemon) {
       resolve(pokemon);
     } else {
       reject(new Error(`Pokemon with id ${id} not found`));
     }
-  })
+  });
 }
 
 export const __setListPokemons = (list: Pokemon[]) => {
