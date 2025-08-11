@@ -3,8 +3,8 @@ import {useQuery} from "@tanstack/react-query";
 import {useRef, useState} from "react";
 import {useParams} from "react-router-dom";
 
-import {axiosInstance} from "../../utils/AxiosInstance.ts";
-import {CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL} from "../../utils/ShortEnv.ts";
+import {axiosInstance} from "@/utils/AxiosInstance";
+import {CHAT_BOT_ID, CHAT_BOT_TOKEN, CHAT_BOT_URL} from "@/utils/ShortEnv";
 
 export const usePokemonListByNames = () => {
   const { names: paramsNames } = useParams<{ names: string }>();

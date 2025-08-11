@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {IoMdArrowUp} from "react-icons/io";
 
-import {Button} from "./Button.tsx";
+import {Button} from "@/components/ui/Button";
 
 export function ScrollTopButton() {
   const [visible, setVisible] = useState(false);

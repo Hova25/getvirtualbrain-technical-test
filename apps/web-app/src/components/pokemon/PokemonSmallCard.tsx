@@ -3,11 +3,10 @@ import {FC} from "react";
 import {LuRefreshCw} from "react-icons/lu";
 import {Link, useLocation} from "react-router-dom";
 
-import {RouterPaths} from "../../App";
-import {PokemonSelectionStep} from "../../features/home/HomePage";
-import {Card} from "../ui/Card";
-
-import {PokemonTypeImage} from "./PokemonTypeImage";
+import {RouterPaths} from "@/App";
+import {PokemonTypeImage} from "@/components/pokemon/PokemonTypeImage";
+import {Card} from "@/components/ui/Card";
+import {PokemonSelectionStep} from "@/features/home/HomePage";
 
 type PokemonSmallCard = {
   pokemon: Pokemon

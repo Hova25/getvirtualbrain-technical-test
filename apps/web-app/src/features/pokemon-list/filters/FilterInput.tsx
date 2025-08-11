@@ -1,8 +1,8 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import {useLocation, useSearchParams} from "react-router-dom";
 
-import {Input} from "../../../components/ui/Input.tsx";
-import {useDebounceCallback} from "../../../hooks/useDebounceCallback.ts";
+import {Input} from "@/components/ui/Input";
+import {useDebounceCallback} from "@/hooks/useDebounceCallback";
 
 export const POKEMON_LIST_SEARCH_PARAM_SEARCH = "search";
 

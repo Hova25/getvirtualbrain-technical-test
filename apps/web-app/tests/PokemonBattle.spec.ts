@@ -1,6 +1,5 @@
 import {expect, Page, test} from '@playwright/test';
-
-import {PokemonFixture} from "./pokemonFixture";
+import {PokemonFixture} from "@tests/PokemonFixture";
 
 const HOME_URL = "/"
 const SELECTION_URL = "/selection";

@@ -2,10 +2,9 @@ import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {useQuery} from "@tanstack/react-query";
 import {useSearchParams} from "react-router-dom";
 
-import {axiosInstance} from "../../utils/AxiosInstance";
-
-import {POKEMON_LIST_SEARCH_PARAM_SEARCH} from "./filters/FilterInput";
-import {POKEMON_LIST_SEARCH_PARAM_TYPES} from "./filters/PokemonTypesSelect";
+import {POKEMON_LIST_SEARCH_PARAM_SEARCH} from "@/features/pokemon-list/filters/FilterInput";
+import {POKEMON_LIST_SEARCH_PARAM_TYPES} from "@/features/pokemon-list/filters/PokemonTypesSelect";
+import {axiosInstance} from "@/utils/AxiosInstance";
 
 const URL = "pokemons";
 

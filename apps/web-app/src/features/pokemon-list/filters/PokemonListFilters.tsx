@@ -1,12 +1,11 @@
 import {IoRefresh} from "react-icons/io5";
 import {useLocation, useSearchParams} from "react-router-dom";
 
-import {Button} from "../../../components/ui/Button";
-import {Card} from "../../../components/ui/Card";
-import {PokemonListPageState} from "../PokemonListPage";
-
-import {FilterInput} from "./FilterInput";
-import {PokemonTypesSelect} from "./PokemonTypesSelect";
+import {Button} from "@/components/ui/Button";
+import {Card} from "@/components/ui/Card";
+import {FilterInput} from "@/features/pokemon-list/filters/FilterInput";
+import {PokemonTypesSelect} from "@/features/pokemon-list/filters/PokemonTypesSelect";
+import {PokemonListPageState} from "@/features/pokemon-list/PokemonListPage";
 
 export const PokemonListFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -2,8 +2,8 @@ import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC} from 'react';
 import {IoIosWarning} from "react-icons/io";
 
-import {PokemonCard} from "../../components/pokemon/PokemonCard.tsx";
-import {Card} from "../../components/ui/Card.tsx";
+import {PokemonCard} from "@/components/pokemon/PokemonCard";
+import {Card} from "@/components/ui/Card";
 
 interface PokemonListProps {
   pokemons: Pokemon[];

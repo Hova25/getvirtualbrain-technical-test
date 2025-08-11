@@ -1,10 +1,10 @@
-import { createServer } from 'http'
+import {createServer} from 'http'
 
 import cors from 'cors'
 import express from 'express'
 
-import { ContentController } from './controllers/ContentsController'
-import { PokemonController } from './controllers/PokemonController'
+import {ContentController} from "@/controllers/ContentsController";
+import {PokemonController} from "@/controllers/PokemonController";
 
 /** App */
 const app = express()
