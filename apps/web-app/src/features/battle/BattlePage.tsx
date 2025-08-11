@@ -3,13 +3,12 @@ import {IoIosHome, IoIosWarning} from "react-icons/io";
 import ReactMarkdown from "react-markdown";
 import {Link} from "react-router-dom";
 
-import {RouterPaths} from "../../App.tsx";
-import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
-import {Button} from "../../components/ui/Button.tsx";
-import {Card} from "../../components/ui/Card.tsx";
-import {Loader} from "../../components/ui/Loader.tsx";
-
-import {usePokemonBattleStream, usePokemonListByNames} from "./BattlePage.api.ts";
+import {RouterPaths} from "@/App";
+import {PokemonSmallCard} from "@/components/pokemon/PokemonSmallCard";
+import {Button} from "@/components/ui/Button";
+import {Card} from "@/components/ui/Card";
+import {Loader} from "@/components/ui/Loader";
+import {usePokemonBattleStream, usePokemonListByNames} from "@/features/battle/BattlePage.api";
 
 export const BattlePage = () => {
   const { data, isLoading, isError } = usePokemonListByNames();

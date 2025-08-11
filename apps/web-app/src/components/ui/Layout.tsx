@@ -1,9 +1,8 @@
 import {PropsWithChildren} from "react";
 
-import {useTheme} from "../theme/ThemeContext";
-import ThemeSwitcher from "../theme/ThemeSwitcher";
-
-import {ScrollTopButton} from "./ScrollTopButton";
+import {useTheme} from "@/components/theme/ThemeContext";
+import ThemeSwitcher from "@/components/theme/ThemeSwitcher";
+import {ScrollTopButton} from "@/components/ui/ScrollTopButton";
 
 export const Layout = ({children}: PropsWithChildren) => {
   const {theme} = useTheme()

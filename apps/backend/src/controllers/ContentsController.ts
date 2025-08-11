@@ -1,8 +1,8 @@
 import archiver from 'archiver';
 import {type Request, type Response, Router} from 'express'
 
-import {pokemonToMarkdown} from "../services/ContentService";
-import {fetchAllPokemons, fetchPokemonById} from "../services/PokemonService";
+import {pokemonToMarkdown} from "@/services/ContentService";
+import {fetchAllPokemons, fetchPokemonById} from "@/services/PokemonService";
 
 const ContentController = Router()
 

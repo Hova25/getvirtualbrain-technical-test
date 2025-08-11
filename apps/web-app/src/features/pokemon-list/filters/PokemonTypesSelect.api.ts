@@ -1,7 +1,7 @@
 import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
 import {useQuery} from "@tanstack/react-query";
 
-import {axiosInstance} from "../../../utils/AxiosInstance.ts";
+import {axiosInstance} from "@/utils/AxiosInstance";
 
 export const useGetPokemonTypes = () => {
   return useQuery({

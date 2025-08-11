@@ -2,10 +2,10 @@ import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 
-import {RouterPaths} from "../../App";
-import {PokemonSmallCard} from "../../components/pokemon/PokemonSmallCard.tsx";
-import {Button} from "../../components/ui/Button";
-import {Card} from "../../components/ui/Card";
+import {RouterPaths} from "@/App";
+import {PokemonSmallCard} from "@/components/pokemon/PokemonSmallCard";
+import {Button} from "@/components/ui/Button";
+import {Card} from "@/components/ui/Card";
 
 export const POKEMON_SELECTION_STEPS = ["POKEMON_1", "POKEMON_2"] as const;
 export type PokemonSelectionStep = (typeof POKEMON_SELECTION_STEPS)[number];

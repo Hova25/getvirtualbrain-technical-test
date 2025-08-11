@@ -1,7 +1,7 @@
 import type {Pokemon} from '@getvirtualbrain-technical-test/shared-types';
 import axios from 'axios';
 
-import {__setListPokemons, fetchAllPokemons, fetchPokemonById} from '../src/services/PokemonService';
+import {__setListPokemons, fetchAllPokemons, fetchPokemonById} from "@/services/PokemonService";
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

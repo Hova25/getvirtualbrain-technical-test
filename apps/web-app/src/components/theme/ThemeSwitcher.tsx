@@ -1,9 +1,8 @@
 import React from 'react';
 import {IoIosMoon, IoIosSunny} from "react-icons/io";
 
-import {Button} from "../ui/Button.tsx";
-
-import {useTheme} from './ThemeContext';
+import {useTheme} from "@/components/theme/ThemeContext";
+import {Button} from "@/components/ui/Button";
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, toggleTheme } = useTheme();

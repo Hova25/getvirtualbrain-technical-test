@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import {useLocation, useSearchParams} from "react-router-dom";
 import Select, {components, GroupBase, MultiValue, MultiValueGenericProps, OptionProps} from "react-select";
 
-import {PokemonTypeImage} from "../../../components/pokemon/PokemonTypeImage";
-
 import {useGetPokemonTypes} from "./PokemonTypesSelect.api";
+
+import {PokemonTypeImage} from "@/components/pokemon/PokemonTypeImage";
 
 export const POKEMON_LIST_SEARCH_PARAM_TYPES = "types";
 

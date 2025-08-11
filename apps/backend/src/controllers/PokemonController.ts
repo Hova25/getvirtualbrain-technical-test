@@ -2,7 +2,7 @@ import {PokemonType} from "@getvirtualbrain-technical-test/shared-types";
 import axios from 'axios'
 import {type Request, type Response, Router} from 'express'
 
-import {fetchAllPokemons, fetchPokemonById} from "../services/PokemonService";
+import {fetchAllPokemons, fetchPokemonById} from "@/services/PokemonService";
 
 const PokemonController = Router()
 const POKEMON_API_URL = 'https://pokebuildapi.fr/api/v1'

@@ -39,7 +39,7 @@ Pour lancer l'UI de playwright vous pouvez faire `pnpm --filter web-app test:ui`
 
 ## Autre
 
-Je tiens à m’excuser de ne pas avoir pris le temps de configurer correctement les fichiers tsconfig. J’aurais souhaité vous livrer un projet avec des imports absolus via des alias TypeScript, mais j’ai préféré ne pas modifier la configuration initiale.
+~~Je tiens à m’excuser de ne pas avoir pris le temps de configurer correctement les fichiers tsconfig. J’aurais souhaité vous livrer un projet avec des imports absolus via des alias TypeScript, mais j’ai préféré ne pas modifier la configuration initiale.~~
 
 De même, l’ajout de Prettier pour standardiser l’indentation et limiter la longueur des lignes aurait amélioré la lisibilité du code, mais je n’ai malheureusement pas pu l’intégrer à temps.
 

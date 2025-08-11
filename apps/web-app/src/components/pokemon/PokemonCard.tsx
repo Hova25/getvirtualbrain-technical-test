@@ -2,9 +2,8 @@ import {Pokemon} from "@getvirtualbrain-technical-test/shared-types";
 import {FC, useCallback, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
-import {PokemonListPageState} from "../../features/pokemon-list/PokemonListPage.tsx";
-
-import {PokemonTypeImage} from "./PokemonTypeImage";
+import {PokemonTypeImage} from "@/components/pokemon/PokemonTypeImage";
+import {PokemonListPageState} from "@/features/pokemon-list/PokemonListPage";
 
 type PokemonCardProps = {
   pokemon: Pokemon

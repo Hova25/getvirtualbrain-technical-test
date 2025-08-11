@@ -1,12 +1,12 @@
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {Route, Routes} from "react-router-dom";
 
-import {ThemeProvider} from "./components/theme/ThemeContext";
-import {Layout} from "./components/ui/Layout";
-import {BattlePage} from "./features/battle/BattlePage.tsx";
-import {HomePage} from "./features/home/HomePage.tsx";
-import {NotFoundPage} from "./features/NotFoundPage.tsx";
-import PokemonListPage from "./features/pokemon-list/PokemonListPage";
+import {ThemeProvider} from "@/components/theme/ThemeContext";
+import {Layout} from "@/components/ui/Layout";
+import {BattlePage} from "@/features/battle/BattlePage";
+import {HomePage} from "@/features/home/HomePage";
+import {NotFoundPage} from "@/features/NotFoundPage";
+import PokemonListPage from "@/features/pokemon-list/PokemonListPage";
 
 const queryClient = new QueryClient()
 
