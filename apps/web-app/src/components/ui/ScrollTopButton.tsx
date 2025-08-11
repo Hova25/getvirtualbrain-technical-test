@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {IoMdArrowUp} from "react-icons/io";
+import { useEffect, useState } from "react";
+import { IoMdArrowUp } from "react-icons/io";
 
-import {Button} from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 export function ScrollTopButton() {
   const [visible, setVisible] = useState(false);
@@ -25,7 +25,7 @@ export function ScrollTopButton() {
     <Button
       onClick={scrollToTop}
       variant="secondary"
-      className="fixed z-50 bottom-4 right-4 sm:bottom-4 sm:right-10 [&_svg]:size-6"
+      className="fixed bottom-4 right-4 z-50 sm:bottom-4 sm:right-10 [&_svg]:size-6"
       aria-label="Remonter en haut"
     >
       <IoMdArrowUp />

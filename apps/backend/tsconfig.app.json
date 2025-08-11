@@ -1,11 +1,11 @@
 {
-	"extends": "./tsconfig.json",
-	"compilerOptions": {
-	  "types": ["node", "jest"],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
-	},
-	"include": ["src/**/*.ts", "tests/**/*.ts"]
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

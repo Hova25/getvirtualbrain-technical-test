@@ -1,4 +1,4 @@
 {
-	"ext": "js,ts,json",
+  "ext": "js,ts,json",
   "exec": "ts-node -r tsconfig-paths/register --project ./tsconfig.app.json ./src/app.ts"
 }

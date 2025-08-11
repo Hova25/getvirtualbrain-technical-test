@@ -1,20 +1,20 @@
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {Route, Routes} from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
 
-import {ThemeProvider} from "@/components/theme/ThemeContext";
-import {Layout} from "@/components/ui/Layout";
-import {BattlePage} from "@/features/battle/BattlePage";
-import {HomePage} from "@/features/home/HomePage";
-import {NotFoundPage} from "@/features/NotFoundPage";
+import { ThemeProvider } from "@/components/theme/ThemeContext";
+import { Layout } from "@/components/ui/Layout";
+import { BattlePage } from "@/features/battle/BattlePage";
+import { HomePage } from "@/features/home/HomePage";
+import { NotFoundPage } from "@/features/NotFoundPage";
 import PokemonListPage from "@/features/pokemon-list/PokemonListPage";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export const RouterPaths = {
   HOME: "/",
   POKEMON_SELECTION: "/selection",
   BATTLE: "/battle", // Il faudrait améliorer la gestion des routes pour intégrer les variables de route
-}
+};
 
 export default function App() {
   return (

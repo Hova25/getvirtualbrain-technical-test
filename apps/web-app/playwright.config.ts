@@ -1,13 +1,13 @@
-import {defineConfig} from '@playwright/test';
+import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   use: {
-    baseURL: 'http://localhost:5174',
+    baseURL: "http://localhost:5174",
     headless: true,
   },
   webServer: {
-    command: 'pnpm dev:test',
+    command: "pnpm dev:test",
     port: 5174,
     reuseExistingServer: true,
   },

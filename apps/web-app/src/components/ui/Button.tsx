@@ -1,27 +1,26 @@
-import {ButtonHTMLAttributes, FC} from "react";
-import {tv, VariantProps} from "tailwind-variants";
+import { ButtonHTMLAttributes, FC } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 const buttonVariants = tv({
-  base: 'font-semibold py-2 px-4 text-center rounded-lg shadow transition cursor-pointer',
+  base: "font-semibold py-2 px-4 text-center rounded-lg shadow transition cursor-pointer",
   variants: {
     variant: {
-      primary: 'bg-blue-500 hover:bg-blue-700 text-white',
-      secondary: 'text-gray-800 bg-amber-300 hover:bg-amber-400 disabled:bg-amber-200',
-      tertiary: 'border border-gray-300 bg-white hover:bg-gray-100 dark:bg-gray-900 hover:dark:bg-gray-700'
+      primary: "bg-blue-500 hover:bg-blue-700 text-white",
+      secondary: "text-gray-800 bg-amber-300 hover:bg-amber-400 disabled:bg-amber-200",
+      tertiary:
+        "border border-gray-300 bg-white hover:bg-gray-100 dark:bg-gray-900 hover:dark:bg-gray-700",
     },
   },
   defaultVariants: {
-    variant: 'primary'
-  }
+    variant: "primary",
+  },
 });
 
-type ButtonVariants = VariantProps<typeof buttonVariants>
+type ButtonVariants = VariantProps<typeof buttonVariants>;
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariants
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariants;
 
-export const Button: FC<ButtonProps> = ({className = "", variant,...props}) => {
-  const buttonClassName = buttonVariants({className, variant});
-  return (
-    <button className={buttonClassName} {...props} />
-  );
-}
+export const Button: FC<ButtonProps> = ({ className = "", variant, ...props }) => {
+  const buttonClassName = buttonVariants({ className, variant });
+  return <button className={buttonClassName} {...props} />;
+};

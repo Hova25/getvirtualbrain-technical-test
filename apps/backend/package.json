@@ -1,32 +1,32 @@
 {
-	"name": "@getvirtualbrain-technical-test/backend",
-	"version": "0.0.0",
-	"type": "commonjs",
-	"scripts": {
-		"dev": "nodemon --config ./nodemon.json",
-		"lint": "eslint .",
-		"test": "jest"
-	},
-	"dependencies": {
-		"archiver": "^7.0.1",
-		"axios": "^1.11.0",
-		"cors": "^2.8.5",
-		"express": "^5.1.0",
-		"ts-node": "^10.9.2",
-		"ts-pattern": "^5.8.0",
-		"use-immer": "^0.11.0"
-	},
-	"devDependencies": {
-		"@getvirtualbrain-technical-test/shared-types": "workspace:*",
-		"@types/archiver": "^6.0.3",
-		"@types/cors": "^2.8.19",
-		"@types/express": "^5.0.3",
-		"@types/jest": "^30.0.0",
-		"@types/node": "^24.1.0",
-		"jest": "^30.0.5",
-		"nodemon": "^2.0.22",
-		"ts-jest": "^29.4.1",
-		"tsconfig-paths": "^4.2.0",
-		"typescript": "~5.9.2"
-	}
+  "name": "@getvirtualbrain-technical-test/backend",
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon --config ./nodemon.json",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "ts-node": "^10.9.2",
+    "ts-pattern": "^5.8.0",
+    "use-immer": "^0.11.0"
+  },
+  "devDependencies": {
+    "@getvirtualbrain-technical-test/shared-types": "workspace:*",
+    "@types/archiver": "^6.0.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "jest": "^30.0.5",
+    "nodemon": "^2.0.22",
+    "ts-jest": "^29.4.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "~5.9.2"
+  }
 }

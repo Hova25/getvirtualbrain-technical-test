@@ -1,14 +1,15 @@
-import js from '@eslint/js'
+import js from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 import pluginImports from "eslint-plugin-import";
 import unusedImports from "eslint-plugin-unused-imports";
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 /** @type {import("eslint").Linter.Config[]} */
 export default tseslint.config(
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -16,7 +17,7 @@ export default tseslint.config(
   },
   {
     plugins: {
-      "import": pluginImports,
+      import: pluginImports,
     },
     rules: {
       "import/order": [
@@ -24,10 +25,10 @@ export default tseslint.config(
         {
           groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
           "newlines-between": "always",
-          alphabetize: { order: "asc", caseInsensitive: true }
-        }
-      ]
-    }
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+    },
   },
   {
     plugins: { "unused-imports": unusedImports },
@@ -40,10 +41,10 @@ export default tseslint.config(
           vars: "all",
           varsIgnorePattern: "^_",
           args: "after-used",
-          argsIgnorePattern: "^_"
-        }
-      ]
-    }
+          argsIgnorePattern: "^_",
+        },
+      ],
+    },
   },
   {
     rules: {
@@ -53,7 +54,7 @@ export default tseslint.config(
       "no-nested-ternary": "error",
       "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1, maxBOF: 0 }],
       "no-console": ["warn", { allow: ["warn", "error"] }],
-      // "indent": ["error", 2]
-    }
-  }
-)
+    },
+  },
+  eslintConfigPrettier,
+);
